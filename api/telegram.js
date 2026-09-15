@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const BOT_TOKEN = "bot8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts";
+  const BOT_TOKEN = "8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts";
   const WEBAPP_URL = "https://wish-note-seven.vercel.app/";
 
   const update = req.body;
