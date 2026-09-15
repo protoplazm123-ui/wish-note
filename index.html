@@ -1,614 +1,992 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>WISH NOTE</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #0d0c0b;
-      color: #eee7dc;
-      font-family: Georgia, "Times New Roman", serif;
-    }
-
-    button {
-      font-family: inherit;
-      cursor: pointer;
-    }
-
-    .app {
-      width: 100%;
-      max-width: 520px;
-      min-height: 100vh;
-      margin: 0 auto;
-      padding: 28px 20px 40px;
-      background:
-        radial-gradient(
-          circle at 50% 0%,
-          #321b1d 0%,
-          #171312 35%,
-          #0d0c0b 75%
-        );
-    }
-
-    /* Верхняя строка */
-
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      font-family: Arial, sans-serif;
-      font-size: 9px;
-      letter-spacing: 2.5px;
-      color: #8d847b;
-    }
-
-    /* Заголовок */
-
-    .logo {
-      margin-top: 62px;
-      margin-bottom: 8px;
-
-      font-size: 42px;
-      line-height: 1;
-      letter-spacing: 5px;
-      font-weight: normal;
-    }
-
-    .subtitle {
-      font-family: Arial, sans-serif;
-      font-size: 10px;
-      letter-spacing: 2.5px;
-      color: #8e867d;
-    }
-
-    /* Текст */
-
-    .intro {
-      margin-top: 58px;
-      margin-bottom: 30px;
-
-      font-size: 23px;
-      line-height: 1.35;
-    }
-
-    .intro span {
-      color: #a94a4d;
-      font-style: italic;
-    }
-
-    /* Категории */
-
-    .categories {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+<meta charset="UTF-8">
 
-    .category {
-      min-height: 135px;
-
-      padding: 20px 16px;
-
-      background: rgba(27, 24, 22, 0.92);
-
-      border: 1px solid #39312d;
-      border-radius: 2px;
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
 
-      color: #eee7dc;
-      text-align: left;
+<title>Wish Note ♡</title>
 
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-    }
+<style>
 
-    .category:active {
-      transform: scale(0.97);
-      background: #29201f;
-    }
+/* =========================
+   ОСНОВНЫЕ НАСТРОЙКИ
+========================= */
 
-    .icon {
-      display: block;
-      margin-bottom: 25px;
-      font-size: 25px;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .category-name {
-      font-size: 16px;
-      line-height: 1.2;
-    }
+body {
+  margin: 0;
 
-    .category-description {
-      margin-top: 7px;
+  min-height: 100vh;
 
-      font-family: Arial, sans-serif;
-      font-size: 9px;
-      letter-spacing: 1px;
-      color: #756d66;
-    }
+  background: #fff9f5;
 
-    /* Кнопка */
+  color: #493d3b;
 
-    .wish-button {
-      width: 100%;
-      margin-top: 25px;
-      padding: 18px;
+  font-family:
+    "Trebuchet MS",
+    Arial,
+    sans-serif;
+}
 
-      background: #70282b;
-      border: none;
 
-      color: #fff3e8;
+/* =========================
+   ПРИЛОЖЕНИЕ
+========================= */
 
-      font-family: Arial, sans-serif;
-      font-size: 10px;
-      letter-spacing: 3px;
+.app {
+  width: 100%;
+  max-width: 520px;
 
-      transition: transform 0.2s ease;
-    }
+  min-height: 100vh;
 
-    .wish-button:active {
-      transform: scale(0.98);
-    }
+  margin: 0 auto;
 
-    /* Низ */
+  padding:
+    28px
+    20px
+    45px;
 
-    .footer {
-      margin-top: 35px;
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      #ffe9e8 0,
+      transparent 25%
+    ),
 
-      text-align: center;
+    radial-gradient(
+      circle at 90% 40%,
+      #fff0dc 0,
+      transparent 25%
+    ),
 
-      font-family: Arial, sans-serif;
-      font-size: 8px;
-      letter-spacing: 2px;
+    #fff9f5;
+}
 
-      color: #5f5852;
-    }
 
-    /* Экран написания желания */
+/* =========================
+   ВЕРХ
+========================= */
 
-    .screen {
-      display: none;
-    }
+.header {
+  display: flex;
 
-    .screen.active {
-      display: block;
-    }
+  justify-content: space-between;
 
-    .back {
-      margin: 0;
-      padding: 0;
+  align-items: center;
 
-      background: none;
-      border: none;
+  color: #b29b98;
 
-      color: #9d948a;
+  font-size: 9px;
 
-      font-family: Arial, sans-serif;
-      font-size: 9px;
-      letter-spacing: 2px;
-    }
+  letter-spacing: 2px;
 
-    .paper {
-      margin-top: 35px;
-      padding: 28px 22px 25px;
+  text-transform: uppercase;
+}
 
-      min-height: 420px;
 
-      background: #e8dfd0;
-      color: #171414;
+/* =========================
+   ЛОГО
+========================= */
 
-      box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+.logo {
+  margin-top: 60px;
 
-      transform: rotate(-0.4deg);
-    }
+  text-align: center;
 
-    .paper-icon {
-      font-size: 27px;
-    }
+  font-family:
+    "Brush Script MT",
+    "Segoe Script",
+    cursive;
 
-    .paper h2 {
-      margin: 10px 0 8px;
+  font-size: 52px;
 
-      font-size: 27px;
-      font-weight: normal;
-    }
+  font-weight: normal;
 
-    .paper-description {
-      font-family: Arial, sans-serif;
-      font-size: 10px;
-      line-height: 1.5;
+  color: #d47f86;
 
-      color: #756b61;
-    }
+  letter-spacing: 1px;
+}
 
-    textarea {
-      width: 100%;
-      height: 190px;
 
-      margin-top: 20px;
-      padding: 10px 0;
+.subtitle {
+  margin-top: -5px;
 
-      resize: none;
+  text-align: center;
 
-      border: none;
-      border-bottom: 1px solid #aaa095;
+  font-size: 9px;
 
-      outline: none;
+  letter-spacing: 3px;
 
-      background: transparent;
+  color: #b39b98;
+}
 
-      color: #171414;
 
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 20px;
-    }
+/* =========================
+   ВВОДНЫЙ ТЕКСТ
+========================= */
 
-    textarea::placeholder {
-      color: #9d9388;
-    }
+.intro {
+  margin-top: 48px;
 
-    .seal-button {
-      width: 100%;
-      margin-top: 22px;
-      padding: 16px;
+  text-align: center;
 
-      background: #171414;
-      border: none;
+  font-family:
+    "Trebuchet MS",
+    sans-serif;
 
-      color: #eee5d9;
+  font-size: 20px;
 
-      font-family: Arial, sans-serif;
-      font-size: 9px;
-      letter-spacing: 2px;
-    }
+  line-height: 1.5;
 
-    /* Экран после отправки */
+  color: #574947;
+}
 
-    .success {
-      display: none;
-      text-align: center;
-      padding-top: 150px;
-    }
+.intro span {
+  color: #d98289;
+}
 
-    .success.active {
-      display: block;
-    }
 
-    .success-symbol {
-      font-size: 40px;
-      margin-bottom: 25px;
-    }
+/* =========================
+   ДЕКОР
+========================= */
 
-    .success h2 {
-      font-size: 27px;
-      font-weight: normal;
-    }
+.decor {
+  text-align: center;
 
-    .success p {
-      margin-top: 15px;
+  margin:
+    25px
+    0
+    28px;
 
-      font-family: Arial, sans-serif;
-      font-size: 10px;
-      line-height: 1.6;
+  color: #e4a4a5;
 
-      color: #8d847b;
-    }
+  font-size: 15px;
 
-    .home-button {
-      margin-top: 30px;
-      padding: 15px 25px;
+  letter-spacing: 8px;
+}
 
-      background: transparent;
-      border: 1px solid #514742;
 
-      color: #d8cec1;
+/* =========================
+   КАТЕГОРИИ
+========================= */
 
-      font-family: Arial, sans-serif;
-      font-size: 9px;
-      letter-spacing: 2px;
-    }
-  </style>
+.categories {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 13px;
+}
+
+
+.category {
+  position: relative;
+
+  min-height: 145px;
+
+  padding: 22px 18px;
+
+  background:
+    rgba(255,255,255,0.8);
+
+  border:
+    1px solid #f1dddd;
+
+  border-radius: 22px;
+
+  color: #574947;
+
+  text-align: left;
+
+  box-shadow:
+    0 8px 25px
+    rgba(180,130,130,0.08);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+
+.category:active {
+  transform: scale(.96);
+
+  box-shadow:
+    0 3px 10px
+    rgba(180,130,130,0.12);
+}
+
+
+.category-icon {
+  width: 45px;
+
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin-bottom: 20px;
+
+  background: #fff0ed;
+
+  border-radius: 50%;
+
+  font-size: 20px;
+}
+
+
+.category:nth-child(2)
+.category-icon {
+  background: #fff4df;
+}
+
+
+.category:nth-child(3)
+.category-icon {
+  background: #eeeafd;
+}
+
+
+.category:nth-child(4)
+.category-icon {
+  background: #fce9f1;
+}
+
+
+.category-title {
+  font-family:
+    "Trebuchet MS",
+    sans-serif;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+
+.category-description {
+  margin-top: 6px;
+
+  font-size: 9px;
+
+  color: #a89592;
+
+  line-height: 1.4;
+}
+
+
+/* =========================
+   ГЛАВНАЯ КНОПКА
+========================= */
+
+.wish-button {
+  width: 100%;
+
+  margin-top: 20px;
+
+  padding: 18px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e99ba0,
+      #d98088
+    );
+
+  color: white;
+
+  font-size: 11px;
+
+  font-weight: bold;
+
+  letter-spacing: 2px;
+
+  box-shadow:
+    0 10px 25px
+    rgba(217,128,136,.2);
+}
+
+
+.wish-button:active {
+  transform: scale(.98);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  margin-top: 32px;
+
+  text-align: center;
+
+  font-size: 9px;
+
+  color: #c0aaa7;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================
+   ЭКРАН ЖЕЛАНИЯ
+========================= */
+
+.screen {
+  display: none;
+}
+
+
+.screen.active {
+  display: block;
+}
+
+
+/* =========================
+   НАЗАД
+========================= */
+
+.back {
+  margin: 0;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #ad9693;
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================
+   ЛИСТ
+========================= */
+
+.paper {
+  margin-top: 35px;
+
+  padding:
+    30px
+    23px
+    25px;
+
+  min-height: 440px;
+
+  background: #fffefd;
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 15px 45px
+    rgba(170,120,120,.12);
+
+  border:
+    1px solid #f4e5e1;
+}
+
+
+.paper-decoration {
+  text-align: center;
+
+  font-size: 22px;
+
+  color: #df9297;
+
+  letter-spacing: 5px;
+}
+
+
+.paper h2 {
+  margin-top: 25px;
+
+  text-align: center;
+
+  font-family:
+    "Brush Script MT",
+    "Segoe Script",
+    cursive;
+
+  font-size: 38px;
+
+  font-weight: normal;
+
+  color: #d47f86;
+}
+
+
+.paper-description {
+  text-align: center;
+
+  font-size: 10px;
+
+  color: #a89592;
+
+  line-height: 1.6;
+}
+
+
+/* =========================
+   ПОЛЕ ЖЕЛАНИЯ
+========================= */
+
+textarea {
+  width: 100%;
+
+  height: 190px;
+
+  margin-top: 25px;
+
+  padding: 15px;
+
+  resize: none;
+
+  outline: none;
+
+  border:
+    1px solid #f0dedb;
+
+  border-radius: 16px;
+
+  background: #fffaf8;
+
+  color: #493d3b;
+
+  font-family:
+    "Trebuchet MS",
+    sans-serif;
+
+  font-size: 17px;
+
+  line-height: 1.5;
+}
+
+
+textarea::placeholder {
+  color: #c7b5b1;
+}
+
+
+/* =========================
+   ЗАПЕЧАТАТЬ
+========================= */
+
+.seal-button {
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding: 17px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  background: #493d3b;
+
+  color: white;
+
+  font-size: 10px;
+
+  letter-spacing: 2px;
+}
+
+
+/* =========================
+   УСПЕШНАЯ ОТПРАВКА
+========================= */
+
+.success {
+  display: none;
+
+  padding-top: 150px;
+
+  text-align: center;
+}
+
+
+.success.active {
+  display: block;
+}
+
+
+.success-heart {
+  font-size: 42px;
+
+  color: #df8d93;
+
+  margin-bottom: 25px;
+}
+
+
+.success h2 {
+  margin: 0;
+
+  font-family:
+    "Brush Script MT",
+    "Segoe Script",
+    cursive;
+
+  font-size: 38px;
+
+  font-weight: normal;
+
+  color: #d47f86;
+}
+
+
+.success p {
+  margin-top: 18px;
+
+  font-size: 11px;
+
+  line-height: 1.7;
+
+  color: #a89592;
+}
+
+
+.home-button {
+  margin-top: 30px;
+
+  padding:
+    14px
+    24px;
+
+  border:
+    1px solid #edcfcc;
+
+  border-radius: 14px;
+
+  background: white;
+
+  color: #8d7370;
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <main class="app">
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
+<div class="app">
 
-    <section id="homeScreen" class="screen active">
 
-      <div class="top">
-        <span>PRIVATE EDITION</span>
-        <span>№ 365</span>
-      </div>
+<!-- =====================
+     ГЛАВНЫЙ ЭКРАН
+===================== -->
 
-      <h1 class="logo">
-        WISH NOTE
-      </h1>
+<section
+  id="homeScreen"
+  class="screen active"
+>
 
-      <div class="subtitle">
-        365 WISHES · 365 DAYS
-      </div>
 
-      <div class="intro">
-        Напиши желание.<br>
-        <span>Остальное — тайна.</span>
-      </div>
+<div class="header">
 
+  <span>
+    OUR LITTLE SECRET
+  </span>
 
-      <div class="categories">
+  <span>
+    ♡ 365
+  </span>
 
-        <button
-          class="category"
-          onclick="openWish('🔥', '18+')"
-        >
-          <span class="icon">🔥</span>
+</div>
 
-          <div class="category-name">
-            18+
-          </div>
 
-          <div class="category-description">
-            ТОЛЬКО ДЛЯ НАС
-          </div>
-        </button>
+<div class="logo">
+  Wish Note
+</div>
 
 
-        <button
-          class="category"
-          onclick="openWish('🍓', 'Вкусности')"
-        >
-          <span class="icon">🍓</span>
+<div class="subtitle">
+  365 WISHES · 365 DAYS
+</div>
 
-          <div class="category-name">
-            Вкусности
-          </div>
 
-          <div class="category-description">
-            ХОЧУ ПОПРОБОВАТЬ
-          </div>
-        </button>
+<div class="intro">
 
+  Что ты сегодня<br>
 
-        <button
-          class="category"
-          onclick="openWish('🎬', 'Досуг')"
-        >
-          <span class="icon">🎬</span>
+  <span>
+    хочешь от меня? ♡
+  </span>
 
-          <div class="category-name">
-            Досуг
-          </div>
+</div>
 
-          <div class="category-description">
-            КУДА ПОЙДЁМ
-          </div>
-        </button>
 
+<div class="decor">
+  ˚₊‧♡‧₊˚
+</div>
 
-        <button
-          class="category"
-          onclick="openWish('🖤', 'Игра на честность')"
-        >
-          <span class="icon">🖤</span>
 
-          <div class="category-name">
-            Игра на честность
-          </div>
+<div class="categories">
 
-          <div class="category-description">
-            БЕЗ ФИЛЬТРОВ
-          </div>
-        </button>
 
-      </div>
+<button
+  class="category"
+  onclick="openWish('🔥','18+')"
+>
 
+  <div class="category-icon">
+    🔥
+  </div>
 
-      <button
-        class="wish-button"
-        onclick="openWish('✦', 'Твоё желание')"
-      >
-        + ЗАГАДАТЬ ЖЕЛАНИЕ
-      </button>
+  <div class="category-title">
+    18+
+  </div>
 
+  <div class="category-description">
+    Только между нами
+  </div>
 
-      <div class="footer">
-        A PRIVATE GAME FOR TWO
-      </div>
+</button>
 
-    </section>
 
 
+<button
+  class="category"
+  onclick="openWish('🍓','Вкусности')"
+>
 
-    <!-- ЭКРАН НАПИСАНИЯ ЖЕЛАНИЯ -->
+  <div class="category-icon">
+    🍓
+  </div>
 
-    <section id="wishScreen" class="screen">
+  <div class="category-title">
+    Вкусности
+  </div>
 
-      <button
-        class="back"
-        onclick="goHome()"
-      >
-        ← НАЗАД
-      </button>
+  <div class="category-description">
+    Хочу что-нибудь вкусное
+  </div>
 
+</button>
 
-      <div class="paper">
 
-        <div
-          id="wishIcon"
-          class="paper-icon"
-        >
-          ✦
-        </div>
 
+<button
+  class="category"
+  onclick="openWish('🎀','Досуг')"
+>
 
-        <h2 id="wishTitle">
-          Твоё желание
-        </h2>
+  <div class="category-icon">
+    🎀
+  </div>
 
+  <div class="category-title">
+    Досуг
+  </div>
 
-        <div class="paper-description">
-          Напиши его так, как ты действительно хочешь.
-        </div>
+  <div class="category-description">
+    Давай куда-нибудь вместе
+  </div>
 
+</button>
 
-        <textarea
-          id="wishText"
-          placeholder="Моё желание..."
-        ></textarea>
 
 
-        <button
-          class="seal-button"
-          onclick="sealWish()"
-        >
-          ЗАПЕЧАТАТЬ ЖЕЛАНИЕ
-        </button>
+<button
+  class="category"
+  onclick="openWish('♡','Честность')"
+>
 
-      </div>
+  <div class="category-icon">
+    ♡
+  </div>
 
+  <div class="category-title">
+    Игра на честность
+  </div>
 
-      <div class="footer">
-        ПОСЛЕ ОТПРАВКИ ЖЕЛАНИЕ СТАНЕТ ТАЙНЫМ
-      </div>
+  <div class="category-description">
+    Скажу тебе то, что думаю
+  </div>
 
-    </section>
+</button>
 
 
+</div>
 
-    <!-- ЭКРАН ПОСЛЕ ОТПРАВКИ -->
 
-    <section
-      id="successScreen"
-      class="success"
-    >
+<button
+  class="wish-button"
+  onclick="openWish('♡','Моё желание')"
+>
 
-      <div class="success-symbol">
-        ✦
-      </div>
+  ♡ &nbsp; ЗАГАДАТЬ ЖЕЛАНИЕ
 
-      <h2>
-        Желание запечатано
-      </h2>
+</button>
 
-      <p>
-        Оно отправлено тому,<br>
-        кто должен его исполнить.
-      </p>
 
-      <button
-        class="home-button"
-        onclick="goHome()"
-      >
-        ВЕРНУТЬСЯ
-      </button>
+<div class="footer">
 
-    </section>
+  made with love · just for us
 
-  </main>
+</div>
 
 
-  <script>
+</section>
 
-    function openWish(icon, title) {
 
-      document
-        .getElementById("homeScreen")
-        .classList.remove("active");
 
-      document
-        .getElementById("successScreen")
-        .classList.remove("active");
+<!-- =====================
+     ЭКРАН ЖЕЛАНИЯ
+===================== -->
 
-      document
-        .getElementById("wishScreen")
-        .classList.add("active");
+<section
+  id="wishScreen"
+  class="screen"
+>
 
 
-      document
-        .getElementById("wishIcon")
-        .textContent = icon;
+<button
+  class="back"
+  onclick="goHome()"
+>
 
+  ← вернуться
 
-      document
-        .getElementById("wishTitle")
-        .textContent = title;
+</button>
 
 
-      document
-        .getElementById("wishText")
-        .value = "";
+<div class="paper">
 
 
-      document
-        .getElementById("wishText")
-        .focus();
-    }
+<div class="paper-decoration">
 
+  ♡ · ˚ ✦ ˚ · ♡
 
-    function sealWish() {
+</div>
 
-      const wish =
-        document
-          .getElementById("wishText")
-          .value
-          .trim();
 
+<h2 id="wishTitle">
+  Моё желание
+</h2>
 
-      if (!wish) {
 
-        alert("Сначала напиши желание ✦");
+<div class="paper-description">
 
-        return;
-      }
+  Напиши то, чего тебе действительно хочется.<br>
 
+  Здесь можно попросить что угодно ♡
 
-      document
-        .getElementById("wishScreen")
-        .classList.remove("active");
+</div>
 
 
-      document
-        .getElementById("successScreen")
-        .classList.add("active");
+<textarea
+  id="wishText"
+  placeholder="Я хочу..."
+></textarea>
 
 
-      /*
-        ПОЗЖЕ ЗДЕСЬ МЫ ДОБАВИМ ОТПРАВКУ
-        ЖЕЛАНИЯ В ТВОЙ TELEGRAM.
-      */
+<button
+  class="seal-button"
+  onclick="sealWish()"
+>
 
-    }
+  СОХРАНИТЬ МОЁ ЖЕЛАНИЕ ♡
 
+</button>
 
-    function goHome() {
 
-      document
-        .getElementById("wishScreen")
-        .classList.remove("active");
+</div>
 
-      document
-        .getElementById("successScreen")
-        .classList.remove("active");
 
-      document
-        .getElementById("homeScreen")
-        .classList.add("active");
+<div class="footer">
 
-    }
+  только для вас двоих
 
-  </script>
+</div>
+
+
+</section>
+
+
+
+<!-- =====================
+     УСПЕШНАЯ ОТПРАВКА
+===================== -->
+
+<section
+  id="successScreen"
+  class="success"
+>
+
+
+<div class="success-heart">
+
+  ♡
+
+</div>
+
+
+<h2>
+
+  Желание сохранено
+
+</h2>
+
+
+<p>
+
+  Теперь оно отправится тому,<br>
+
+  кто должен его исполнить ♡
+
+</p>
+
+
+<button
+  class="home-button"
+  onclick="goHome()"
+>
+
+  ВЕРНУТЬСЯ
+
+</button>
+
+
+</section>
+
+
+</div>
+
+
+
+<script>
+
+
+function openWish(icon, title) {
+
+  document
+    .getElementById("homeScreen")
+    .classList.remove("active");
+
+  document
+    .getElementById("successScreen")
+    .classList.remove("active");
+
+  document
+    .getElementById("wishScreen")
+    .classList.add("active");
+
+
+  document
+    .querySelector(".paper-decoration")
+    .textContent =
+    icon + " · ˚ ✦ ˚ · " + icon;
+
+
+  document
+    .getElementById("wishTitle")
+    .textContent =
+    title;
+
+
+  document
+    .getElementById("wishText")
+    .value = "";
+
+
+  document
+    .getElementById("wishText")
+    .focus();
+
+}
+
+
+
+function sealWish() {
+
+  const wish =
+    document
+      .getElementById("wishText")
+      .value
+      .trim();
+
+
+  if (!wish) {
+
+    alert(
+      "Сначала напиши желание ♡"
+    );
+
+    return;
+
+  }
+
+
+  /*
+   * Позже здесь подключим
+   * Telegram Bot API.
+   *
+   * Тогда текст желания
+   * автоматически придёт
+   * тебе в Telegram.
+   */
+
+
+  document
+    .getElementById("wishScreen")
+    .classList.remove("active");
+
+
+  document
+    .getElementById("successScreen")
+    .classList.add("active");
+
+}
+
+
+
+function goHome() {
+
+  document
+    .getElementById("wishScreen")
+    .classList.remove("active");
+
+
+  document
+    .getElementById("successScreen")
+    .classList.remove("active");
+
+
+  document
+    .getElementById("homeScreen")
+    .classList.add("active");
+
+}
+
+</script>
+
 
 </body>
 </html>
