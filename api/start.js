@@ -4,11 +4,11 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true });
     }
 
-    const token = process.env.BOT_TOKEN;
+    const token = process.env.8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts;
 
     if (!token) {
-      console.error("BOT_TOKEN is missing");
-      return res.status(500).json({ error: "BOT_TOKEN is missing" });
+      console.error("8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts is missing");
+      return res.status(500).json({ error: "8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts is missing" });
     }
 
     const update = req.body;
@@ -31,7 +31,7 @@ const text = `💌 WISH NOTE
 
 Ну что, какое желание будет сегодня? ✨`;
     const response = await fetch(
-      `https://api.telegram.org/bot${token}/sendMessage`,
+      `https://api.telegram.org/bot${8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts}/sendMessage`,
       {
         method: "POST",
         headers: {
