@@ -3,35 +3,23 @@ export default async function handler(req, res) {
     if (req.method !== "POST") {
       return res.status(200).json({ ok: true });
     }
-
-    const token = process.env.8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts;
-
+    const token = process.env.BOT_TOKEN;
     if (!token) {
-      console.error("8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts is missing");
-      return res.status(500).json({ error: "8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts is missing" });
+      console.error("BOT_TOKEN is missing");
+      return res.status(500).json({ error: "BOT_TOKEN is missing" });
     }
-
     const update = req.body;
-
     if (!update || !update.message) {
       return res.status(200).json({ ok: true });
     }
-
     const chatId = update.message.chat.id;
-
     const text = `💌 WISH NOTE
-
-const text = `💌 WISH NOTE
-
 А вот и твой подарочек, любима квиточка♡
-
 Не забывай пользоваться им каждый день 🫶🏼
-
 Здесь можно загадать всё, что угодно — от маленького желания до того, о чём ты давно мечтал.
-
 Ну что, какое желание будет сегодня? ✨`;
     const response = await fetch(
-      `https://api.telegram.org/bot${8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts}/sendMessage`,
+      `https://api.telegram.org/bot${token}/sendMessage`,
       {
         method: "POST",
         headers: {
@@ -55,14 +43,15 @@ const text = `💌 WISH NOTE
         })
       }
     );
-
     const result = await response.json();
-
     console.log("Telegram response:", result);
-
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({
+      ok: true
+    });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      error: error.message
+    });
   }
 }
