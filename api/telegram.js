@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
       "Каждый день ты можешь оставить одно желание — маленькое или совершенно безумное.\n\n" +
       "Выбери категорию, напиши желание и запечатай его. После этого оно отправится мне, а тебе останется только ждать его исполнения ✨";
 
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    await fetch(`https://api.telegram.org/bot${8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
