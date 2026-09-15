@@ -14,16 +14,31 @@
 <style>
 
 /* =========================
-   ОСНОВНЫЕ НАСТРОЙКИ
+   ОСНОВА
 ========================= */
-
 
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
-  background: url('BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png') center center / cover no-repeat fixed;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.45)
+    ),
+    url("BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png")
+    center center / cover fixed no-repeat;
 }
 
 
@@ -35,83 +50,41 @@ body {
   width: 100%;
   max-width: 520px;
   min-height: 100vh;
+
   margin: 0 auto;
-  padding: 28px 20px 45px;
 
-  background: rgba(0, 0, 0, 0.42);
-}
+  padding: 28px 20px 50px;
 
-/* =========================
-   ВЕРХ
-========================= */
+  background: rgba(0, 0, 0, 0.25);
 
-.header {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  color: #b29b98;
-
-  font-size: 9px;
-
-  letter-spacing: 2px;
-
-  text-transform: uppercase;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 
 /* =========================
-   ЛОГО
+   СТРАНИЦЫ
 ========================= */
 
-.logo {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 46px;
-  font-weight: 900;
-  letter-spacing: -1.5px;
-  color: #ffffff;
-  text-transform: uppercase;
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+.page {
+  display: none;
+  animation: pageAppear 0.45s ease;
 }
 
-
-.subtitle {
-  margin-top: -5px;
-
-  text-align: center;
-
-  font-size: 9px;
-
-  letter-spacing: 3px;
-
-  color: #b39b98;
+.page.active {
+  display: block;
 }
 
+@keyframes pageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 
-/* =========================
-   ВВОДНЫЙ ТЕКСТ
-========================= */
-
-.intro {
-  margin-top: 48px;
-
-  text-align: center;
-
-  font-family:
-    "Trebuchet MS",
-    sans-serif;
-
-  font-size: 20px;
-
-  line-height: 1.5;
-
-  color: #574947;
-}
-
-.intro span {
-  color: #d98289;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 
@@ -120,18 +93,499 @@ body {
 ========================= */
 
 .decor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.decor.one {
+  top: 30px;
+  left: 15px;
+  font-size: 28px;
+}
+
+.decor.two {
+  top: 110px;
+  right: 18px;
+  font-size: 25px;
+}
+
+.decor.three {
+  bottom: 70px;
+  left: 18px;
+  font-size: 22px;
+}
+
+.decor.four {
+  bottom: 120px;
+  right: 20px;
+  font-size: 25px;
+}
+
+
+/* =========================
+   ПЕРВАЯ СТРАНИЦА
+========================= */
+
+.intro {
+  position: relative;
+  z-index: 2;
+
+  min-height: calc(100vh - 78px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   text-align: center;
+}
 
-  margin:
-    25px
-    0
-    28px;
+.intro-photo {
+  width: 145px;
+  height: 145px;
 
-  color: #e4a4a5;
+  margin: 0 auto 25px;
+
+  border-radius: 50%;
+
+  background:
+    url("BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png")
+    center / cover;
+
+  border: 5px solid rgba(255,255,255,0.85);
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,0.3);
+
+  animation: photoFloat 4s ease-in-out infinite;
+}
+
+@keyframes photoFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.logo {
+  margin: 0;
+
+  font-size: 48px;
+  line-height: 0.95;
+
+  font-weight: 900;
+
+  letter-spacing: -2px;
+
+  color: #fff;
+
+  text-shadow:
+    0 4px 18px rgba(0,0,0,0.35);
+}
+
+.intro-title {
+  margin-top: 18px;
+
+  font-size: 23px;
+  font-weight: 800;
+
+  line-height: 1.2;
+}
+
+.intro-text {
+  max-width: 390px;
+
+  margin: 18px auto 0;
 
   font-size: 15px;
+  line-height: 1.65;
 
-  letter-spacing: 8px;
+  font-weight: 500;
+
+  text-shadow:
+    0 2px 10px rgba(0,0,0,0.35);
+}
+
+.date-range {
+  margin-top: 25px;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 3px;
+
+  opacity: 0.95;
+}
+
+.days-title {
+  margin-top: 8px;
+
+  font-size: 16px;
+  font-weight: 900;
+
+  letter-spacing: 3px;
+
+  animation: softPulse 3s ease-in-out infinite;
+}
+
+@keyframes softPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.love {
+  margin-top: 25px;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* =========================
+   КНОПКИ
+========================= */
+
+.main-button {
+  width: 100%;
+
+  margin-top: 25px;
+
+  padding: 17px 20px;
+
+  border: none;
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.92);
+
+  color: #555;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.2);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.main-button:active {
+  transform: scale(0.97);
+}
+
+
+/* =========================
+   КАЛЕНДАРЬ
+========================= */
+
+.calendar-header {
+  text-align: center;
+
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.calendar-small-title {
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 3px;
+
+  opacity: 0.8;
+}
+
+.calendar-title {
+  margin-top: 7px;
+
+  font-size: 30px;
+  font-weight: 900;
+
+  letter-spacing: -1px;
+}
+
+.calendar-range {
+  margin-top: 7px;
+
+  font-size: 11px;
+  letter-spacing: 2px;
+
+  opacity: 0.75;
+}
+
+.month-navigation {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+}
+
+.month-name {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.nav-button {
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.2);
+
+  color: white;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   ДНИ НЕДЕЛИ
+========================= */
+
+.weekdays,
+.calendar-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(7, 1fr);
+
+  gap: 7px;
+}
+
+.weekdays {
+  margin-bottom: 8px;
+
+  text-align: center;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  opacity: 0.7;
+}
+
+
+/* =========================
+   ДНИ
+========================= */
+
+.day {
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.14);
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.day:active {
+  transform: scale(0.92);
+}
+
+.day.empty {
+  background: transparent;
+  cursor: default;
+}
+
+.day.locked {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.day.today {
+  background: rgba(255, 190, 211, 0.8);
+
+  color: #4d3941;
+
+  box-shadow:
+    0 5px 20px rgba(255,190,211,0.25);
+}
+
+.day.wished::after {
+  content: "♡";
+
+  position: absolute;
+
+  bottom: 3px;
+  right: 5px;
+
+  font-size: 9px;
+
+  color: #ffb6cf;
+}
+
+.day.completed::after {
+  content: "✓";
+
+  position: absolute;
+
+  bottom: 3px;
+  right: 5px;
+
+  font-size: 9px;
+
+  color: #b8f0ce;
+}
+
+
+/* =========================
+   ФОТО-БЛОК
+========================= */
+
+.photo-strip {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 28px;
+}
+
+.photo-card {
+  height: 150px;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  border: 2px solid rgba(255,255,255,0.3);
+
+  background:
+    url("BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png")
+    center / cover;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.2);
+}
+
+.photo-card:nth-child(2) {
+  transform: translateY(12px);
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 100;
+
+  display: none;
+
+  align-items: flex-end;
+  justify-content: center;
+
+  background: rgba(0,0,0,0.5);
+
+  backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  width: 100%;
+  max-width: 520px;
+
+  padding: 28px 20px 35px;
+
+  border-radius:
+    28px 28px 0 0;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff8fb,
+      #f2f1f4
+    );
+
+  color: #49434a;
+
+  animation: modalUp 0.35s ease;
+}
+
+@keyframes modalUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.modal-date {
+  text-align: center;
+
+  font-size: 12px;
+
+  letter-spacing: 2px;
+
+  font-weight: 800;
+
+  color: #a56f83;
+}
+
+.modal-title {
+  margin-top: 8px;
+
+  text-align: center;
+
+  font-size: 23px;
+
+  font-weight: 900;
+}
+
+.modal-question {
+  margin: 8px 0 20px;
+
+  text-align: center;
+
+  color: #777;
+
+  font-size: 14px;
 }
 
 
@@ -145,408 +599,245 @@ body {
   grid-template-columns:
     1fr 1fr;
 
-  gap: 13px;
+  gap: 10px;
 }
-
 
 .category {
-  position: relative;
+  min-height: 105px;
 
-  min-height: 145px;
+  padding: 15px;
 
-  padding: 22px 18px;
+  border: 1px solid #e6dce1;
 
-  background:
-    rgba(255,255,255,0.8);
+  border-radius: 20px;
 
-  border:
-    1px solid #f1dddd;
+  background: white;
 
-  border-radius: 22px;
+  color: #49434a;
 
-  color: #574947;
-
-  text-align: left;
-
-  box-shadow:
-    0 8px 25px
-    rgba(180,130,130,0.08);
+  cursor: pointer;
 
   transition:
-    transform .2s ease,
-    box-shadow .2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
-
 
 .category:active {
-  transform: scale(.96);
-
-  box-shadow:
-    0 3px 10px
-    rgba(180,130,130,0.12);
+  transform: scale(0.96);
 }
-
 
 .category-icon {
-  width: 45px;
+  font-size: 25px;
 
-  height: 45px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  margin-bottom: 20px;
-
-  background: #fff0ed;
-
-  border-radius: 50%;
-
-  font-size: 20px;
+  margin-bottom: 8px;
 }
 
+.category-name {
+  font-size: 13px;
 
-.category:nth-child(2)
-.category-icon {
-  background: #fff4df;
-}
-
-
-.category:nth-child(3)
-.category-icon {
-  background: #eeeafd;
-}
-
-
-.category:nth-child(4)
-.category-icon {
-  background: #fce9f1;
-}
-
-
-.category-title {
-  font-family:
-    "Trebuchet MS",
-    sans-serif;
-
-  font-size: 15px;
-
-  font-weight: 600;
-}
-
-
-.category-description {
-  margin-top: 6px;
-
-  font-size: 9px;
-
-  color: #a89592;
-
-  line-height: 1.4;
+  font-weight: 900;
 }
 
 
 /* =========================
-   ГЛАВНАЯ КНОПКА
+   ФОРМА ЖЕЛАНИЯ
 ========================= */
 
-.wish-button {
-  width: 100%;
-
-  margin-top: 20px;
-
-  padding: 18px;
-
-  border: none;
-
-  border-radius: 18px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #e99ba0,
-      #d98088
-    );
-
-  color: white;
-
-  font-size: 11px;
-
-  font-weight: bold;
-
-  letter-spacing: 2px;
-
-  box-shadow:
-    0 10px 25px
-    rgba(217,128,136,.2);
+.wish-page {
+  padding-top: 15px;
 }
 
-
-.wish-button:active {
-  transform: scale(.98);
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer {
-  margin-top: 32px;
-
-  text-align: center;
-
-  font-size: 9px;
-
-  color: #c0aaa7;
-
-  letter-spacing: 1px;
-}
-
-
-/* =========================
-   ЭКРАН ЖЕЛАНИЯ
-========================= */
-
-.screen {
-  display: none;
-}
-
-
-.screen.active {
-  display: block;
-}
-
-
-/* =========================
-   НАЗАД
-========================= */
-
-.back {
-  margin: 0;
-
-  padding: 0;
-
+.back-button {
   border: none;
 
   background: transparent;
 
-  color: #ad9693;
+  color: white;
 
-  font-size: 10px;
+  font-size: 13px;
 
-  letter-spacing: 1px;
+  font-weight: 800;
+
+  cursor: pointer;
 }
 
+.wish-card {
+  margin-top: 25px;
 
-/* =========================
-   ЛИСТ
-========================= */
-
-.paper {
-  margin-top: 35px;
-
-  padding:
-    30px
-    23px
-    25px;
-
-  min-height: 440px;
-
-  background: #fffefd;
+  padding: 25px 20px;
 
   border-radius: 25px;
 
+  background:
+    linear-gradient(
+      145deg,
+      #fff8fb,
+      #f1eff2
+    );
+
+  color: #4d474d;
+
   box-shadow:
-    0 15px 45px
-    rgba(170,120,120,.12);
-
-  border:
-    1px solid #f4e5e1;
+    0 20px 50px rgba(0,0,0,0.25);
 }
 
+.wish-category {
+  font-size: 11px;
 
-.paper-decoration {
-  text-align: center;
+  font-weight: 900;
 
-  font-size: 22px;
+  letter-spacing: 2px;
 
-  color: #df9297;
-
-  letter-spacing: 5px;
+  color: #ad7189;
 }
 
+.wish-title {
+  margin-top: 8px;
 
-.paper h2 {
-  margin-top: 25px;
+  font-size: 25px;
 
-  text-align: center;
-
-  font-family:
-    "Brush Script MT",
-    "Segoe Script",
-    cursive;
-
-  font-size: 38px;
-
-  font-weight: normal;
-
-  color: #d47f86;
+  font-weight: 900;
 }
-
-
-.paper-description {
-  text-align: center;
-
-  font-size: 10px;
-
-  color: #a89592;
-
-  line-height: 1.6;
-}
-
-
-/* =========================
-   ПОЛЕ ЖЕЛАНИЯ
-========================= */
 
 textarea {
   width: 100%;
 
-  height: 190px;
+  min-height: 180px;
 
-  margin-top: 25px;
+  margin-top: 20px;
 
-  padding: 15px;
+  padding: 17px;
 
   resize: none;
 
+  border-radius: 18px;
+
+  border: 1px solid #ded4da;
+
   outline: none;
 
-  border:
-    1px solid #f0dedb;
+  background: rgba(255,255,255,0.8);
 
-  border-radius: 16px;
+  color: #4d474d;
 
-  background: #fffaf8;
+  font-family: inherit;
 
-  color: #493d3b;
-
-  font-family:
-    "Trebuchet MS",
-    sans-serif;
-
-  font-size: 17px;
+  font-size: 15px;
 
   line-height: 1.5;
 }
 
-
 textarea::placeholder {
-  color: #c7b5b1;
+  color: #aaa;
 }
-
-
-/* =========================
-   ЗАПЕЧАТАТЬ
-========================= */
 
 .seal-button {
   width: 100%;
 
-  margin-top: 18px;
+  margin-top: 15px;
 
-  padding: 17px;
+  padding: 16px;
 
   border: none;
 
-  border-radius: 16px;
+  border-radius: 17px;
 
-  background: #493d3b;
+  background: #d98ca8;
 
   color: white;
 
-  font-size: 10px;
+  font-size: 13px;
 
-  letter-spacing: 2px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
 }
 
 
 /* =========================
-   УСПЕШНАЯ ОТПРАВКА
+   УСПЕХ
 ========================= */
 
 .success {
-  display: none;
+  min-height: 80vh;
 
-  padding-top: 150px;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 
   text-align: center;
 }
 
+.success-card {
+  padding: 35px 20px;
 
-.success.active {
-  display: block;
+  border-radius: 28px;
+
+  background: rgba(255,255,255,0.94);
+
+  color: #4c454b;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.25);
 }
-
 
 .success-heart {
-  font-size: 42px;
+  font-size: 48px;
 
-  color: #df8d93;
+  animation:
+    heartBeat 1.2s ease infinite;
+}
 
-  margin-bottom: 25px;
+@keyframes heartBeat {
+  0%,100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+.success-title {
+  margin-top: 15px;
+
+  font-size: 24px;
+
+  font-weight: 900;
+}
+
+.success-text {
+  margin-top: 10px;
+
+  color: #777;
+
+  line-height: 1.5;
+
+  font-size: 14px;
 }
 
 
-.success h2 {
-  margin: 0;
+/* =========================
+   АДАПТАЦИЯ
+========================= */
 
-  font-family:
-    "Brush Script MT",
-    "Segoe Script",
-    cursive;
+@media (max-width: 380px) {
 
-  font-size: 38px;
+  .logo {
+    font-size: 42px;
+  }
 
-  font-weight: normal;
+  .intro-title {
+    font-size: 21px;
+  }
 
-  color: #d47f86;
-}
+  .day {
+    font-size: 12px;
+  }
 
-
-.success p {
-  margin-top: 18px;
-
-  font-size: 11px;
-
-  line-height: 1.7;
-
-  color: #a89592;
-}
-
-
-.home-button {
-  margin-top: 30px;
-
-  padding:
-    14px
-    24px;
-
-  border:
-    1px solid #edcfcc;
-
-  border-radius: 14px;
-
-  background: white;
-
-  color: #8d7370;
-
-  font-size: 9px;
-
-  letter-spacing: 2px;
 }
 
 </style>
@@ -555,319 +846,616 @@ textarea::placeholder {
 
 <body>
 
-
 <div class="app">
 
+  <!-- ДЕКОР -->
+
+  <div class="decor one">♡</div>
+  <div class="decor two">🦇</div>
+  <div class="decor three">🐱</div>
+  <div class="decor four">✦</div>
+
+
+  <!-- =====================
+       ПЕРВАЯ СТРАНИЦА
+  ====================== -->
+
+  <section
+    id="introPage"
+    class="page active">
+
+    <div class="intro">
+
+      <div class="intro-photo"></div>
+
+      <h1 class="logo">
+        WISH NOTE
+      </h1>
+
+      <div class="intro-title">
+        Квиточка моя ♡
+      </div>
+
+      <div class="intro-text">
+
+        Давай сделаем твой 30-й год
+        незабываемым.
+
+        <br><br>
+
+        Я хочу исполнять все твои
+        маленькие желания и делать тебя
+        ещё счастливее.
+
+        Поэтому дарю тебе этот
+        <b>Wish Note</b>.
+
+        <br><br>
+
+        Не будь таким скромным —
+        здесь можно хотеть всё, что угодно.
+
+        От самых маленьких желаний
+        до тех, о которых ты давно мечтал.
+
+      </div>
+
+      <div class="date-range">
+        26.09.2026 — 25.09.2027
+      </div>
+
+      <div class="days-title">
+        365 ДНЕЙ · 365 ЖЕЛАНИЙ
+      </div>
+
+      <div class="love">
+        Люблю тебя ♡
+      </div>
+
+      <button
+        class="main-button"
+        onclick="openCalendar()">
+
+        ОТКРЫТЬ КАЛЕНДАРЬ ♡
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================
+       КАЛЕНДАРЬ
+  ====================== -->
+
+  <section
+    id="calendarPage"
+    class="page">
+
+    <div class="calendar-header">
+
+      <div class="calendar-small-title">
+        WISH NOTE
+      </div>
+
+      <div class="calendar-title">
+        Твой 30-й год ♡
+      </div>
+
+      <div class="calendar-range">
+        26.09.2026 — 25.09.2027
+      </div>
+
+    </div>
+
+
+    <div class="month-navigation">
+
+      <button
+        class="nav-button"
+        onclick="previousMonth()">
+        ‹
+      </button>
+
+      <div
+        id="monthName"
+        class="month-name">
+      </div>
+
+      <button
+        class="nav-button"
+        onclick="nextMonth()">
+        ›
+      </button>
+
+    </div>
+
+
+    <div class="weekdays">
+
+      <div>ПН</div>
+      <div>ВТ</div>
+      <div>СР</div>
+      <div>ЧТ</div>
+      <div>ПТ</div>
+      <div>СБ</div>
+      <div>ВС</div>
+
+    </div>
+
+
+    <div
+      id="calendarGrid"
+      class="calendar-grid">
+    </div>
+
+
+    <div class="photo-strip">
+
+      <div class="photo-card"></div>
+      <div class="photo-card"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================
+       СТРАНИЦА ЖЕЛАНИЯ
+  ====================== -->
+
+  <section
+    id="wishPage"
+    class="page wish-page">
+
+    <button
+      class="back-button"
+      onclick="backToCalendar()">
+
+      ← Назад к календарю
+
+    </button>
+
+
+    <div class="wish-card">
+
+      <div
+        id="selectedCategory"
+        class="wish-category">
+      </div>
+
+      <div
+        id="selectedDate"
+        class="wish-title">
+      </div>
+
+      <textarea
+        id="wishText"
+        placeholder="Напиши своё желание... ♡">
+      </textarea>
+
+      <button
+        class="seal-button"
+        onclick="sealWish()">
+
+        ♡ ЗАПЕЧАТАТЬ ЖЕЛАНИЕ
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================
+       УСПЕХ
+  ====================== -->
+
+  <section
+    id="successPage"
+    class="page success">
+
+    <div class="success-card">
+
+      <div class="success-heart">
+        ♡
+      </div>
+
+      <div class="success-title">
+        Желание запечатано
+      </div>
+
+      <div class="success-text">
+
+        Теперь оно отправилось тому,
+        кто должен его исполнить ♡
+
+        <br><br>
+
+        Миссия принята 🦇
+
+      </div>
+
+      <button
+        class="main-button"
+        onclick="openCalendar()">
+
+        ВЕРНУТЬСЯ В КАЛЕНДАРЬ
+
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
+
 
 <!-- =====================
-     ГЛАВНЫЙ ЭКРАН
-===================== -->
+     МОДАЛЬНОЕ ОКНО
+====================== -->
 
-<section
-  id="homeScreen"
-  class="screen active"
->
+<div
+  id="categoryModal"
+  class="modal-overlay">
 
+  <div class="modal">
 
-<div class="header">
+    <div
+      id="modalDate"
+      class="modal-date">
+    </div>
 
-  <span>
-    OUR LITTLE SECRET
-  </span>
+    <div class="modal-title">
+      Что сегодня загадать? ♡
+    </div>
 
-  <span>
-    ♡ 365
-  </span>
-
-</div>
-
-
-<div class="logo">
-  Wish Note
-</div>
+    <div class="modal-question">
+      Выбери категорию своего желания
+    </div>
 
 
-<div class="days-title">365 ДНЕЙ · 365 ЖЕЛАНИЙ</div>
+    <div class="categories">
+
+      <button
+        class="category"
+        onclick="selectCategory('18+')">
+
+        <div class="category-icon">
+          🔥
+        </div>
+
+        <div class="category-name">
+          18+
+        </div>
+
+      </button>
 
 
-<div class="intro">
+      <button
+        class="category"
+        onclick="selectCategory('ВКУСНОСТИ')">
 
-  Что ты сегодня<br>
+        <div class="category-icon">
+          🍓
+        </div>
 
-  <span>
-    хочешь ? ♡
-  </span>
+        <div class="category-name">
+          ВКУСНОСТИ
+        </div>
 
-</div>
-
-
-<div class="decor">
-  ˚₊‧♡‧₊˚
-</div>
-
-
-<div class="categories">
+      </button>
 
 
-<button
-  class="category"
-  onclick="openWish('🔥','18+')"
->
+      <button
+        class="category"
+        onclick="selectCategory('ДОСУГ')">
 
-  <div class="category-icon">
-    🔥
+        <div class="category-icon">
+          🎬
+        </div>
+
+        <div class="category-name">
+          ДОСУГ
+        </div>
+
+      </button>
+
+
+      <button
+        class="category"
+        onclick="selectCategory('ЧЕСТНОСТЬ')">
+
+        <div class="category-icon">
+          🖤
+        </div>
+
+        <div class="category-name">
+          ЧЕСТНОСТЬ
+        </div>
+
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="category-title">
-    Вогник
-  </div>
-
-  <div class="category-description">
-    ne nado stesnytsa zhelaniy
-  </div>
-
-</button>
-
-
-
-<button
-  class="category"
-  onclick="openWish('🍓','Вкусности')"
->
-
-  <div class="category-icon">
-    🍓
-  </div>
-
-  <div class="category-title">
-    Вкусности
-  </div>
-
-  <div class="category-description">
-    Хочу что-нибудь вкусное
-  </div>
-
-</button>
-
-
-
-<button
-  class="category"
-  onclick="openWish('🎀','Досуг')"
->
-
-  <div class="category-icon">
-    🎀
-  </div>
-
-  <div class="category-title">
-    Досуг
-  </div>
-
-  <div class="category-description">
-   Давай сегодня что-то делать вместе 
-  </div>
-
-</button>
-
-
-
-<button
-  class="category"
-  onclick="openWish('♡','Честность')"
->
-
-  <div class="category-icon">
-    ♡
-  </div>
-
-  <div class="category-title">
-    Тема для душевных разговоров
-  </div>
-
-  <div class="category-description">
-    Скажу тебе то, что думаю
-  </div>
-
-</button>
-
-
 </div>
-
-
-<button
-  class="wish-button"
-  onclick="openWish('♡','Моё желание')"
->
-
-  ♡ &nbsp; ЗАГАДАТЬ ЖЕЛАНИЕ
-
-</button>
-
-
-<div class="footer">
-
-  made with love · just for us
-
-</div>
-
-
-</section>
-
-
-
-<!-- =====================
-     ЭКРАН ЖЕЛАНИЯ
-===================== -->
-
-<section
-  id="wishScreen"
-  class="screen"
->
-
-
-<button
-  class="back"
-  onclick="goHome()"
->
-
-  ← вернуться
-
-</button>
-
-
-<div class="paper">
-
-
-<div class="paper-decoration">
-
-  ♡ · ˚ ✦ ˚ · ♡
-
-</div>
-
-
-<h2 id="wishTitle">
-  Моё желание
-</h2>
-
-
-<div class="paper-description">
-
-  Напиши то, чего тебе действительно хочется.<br>
-
-  Здесь можно попросить что угодно ♡
-
-</div>
-
-
-<textarea
-  id="wishText"
-  placeholder="Я хочу..."
-></textarea>
-
-
-<button
-  class="seal-button"
-  onclick="sealWish()"
->
-
-  СОХРАНИТЬ МОЁ ЖЕЛАНИЕ ♡
-
-</button>
-
-
-</div>
-
-
-<div class="footer">
-
-  только для вас двоих
-
-</div>
-
-
-</section>
-
-
-
-<!-- =====================
-     УСПЕШНАЯ ОТПРАВКА
-===================== -->
-
-<section
-  id="successScreen"
-  class="success"
->
-
-
-<div class="success-heart">
-
-  ♡
-
-</div>
-
-
-<h2>
-
-  Желание сохранено
-
-</h2>
-
-
-<p>
-
-  Теперь оно отправится тому,<br>
-
-  кто должен его исполнить ♡
-
-</p>
-
-
-<button
-  class="home-button"
-  onclick="goHome()"
->
-
-  ВЕРНУТЬСЯ
-
-</button>
-
-
-</section>
-
-
-</div>
-
 
 
 <script>
 
+/* =========================
+   ДАТЫ
+========================= */
 
-function openWish(icon, title) {
+const startDate =
+  new Date(2026, 8, 26);
+
+const endDate =
+  new Date(2027, 8, 25);
+
+let currentMonth =
+  new Date(2026, 8, 1);
+
+let selectedDate = null;
+
+let selectedCategory = null;
+
+let wishedDays = {};
+
+
+/* =========================
+   СТРАНИЦЫ
+========================= */
+
+function showPage(id) {
 
   document
-    .getElementById("homeScreen")
-    .classList.remove("active");
+    .querySelectorAll(".page")
+    .forEach(page => {
+
+      page.classList.remove("active");
+
+    });
 
   document
-    .getElementById("successScreen")
-    .classList.remove("active");
-
-  document
-    .getElementById("wishScreen")
+    .getElementById(id)
     .classList.add("active");
 
+  window.scrollTo(0, 0);
+}
+
+
+function openCalendar() {
+
+  showPage("calendarPage");
+
+  renderCalendar();
+
+}
+
+
+function backToCalendar() {
+
+  showPage("calendarPage");
+
+  renderCalendar();
+
+}
+
+
+/* =========================
+   КАЛЕНДАРЬ
+========================= */
+
+const months = [
+  "ЯНВАРЬ",
+  "ФЕВРАЛЬ",
+  "МАРТ",
+  "АПРЕЛЬ",
+  "МАЙ",
+  "ИЮНЬ",
+  "ИЮЛЬ",
+  "АВГУСТ",
+  "СЕНТЯБРЬ",
+  "ОКТЯБРЬ",
+  "НОЯБРЬ",
+  "ДЕКАБРЬ"
+];
+
+
+function renderCalendar() {
+
+  const year =
+    currentMonth.getFullYear();
+
+  const month =
+    currentMonth.getMonth();
 
   document
-    .querySelector(".paper-decoration")
+    .getElementById("monthName")
     .textContent =
-    icon + " · ˚ ✦ ˚ · " + icon;
+      months[month] +
+      " " +
+      year;
+
+
+  const grid =
+    document.getElementById("calendarGrid");
+
+  grid.innerHTML = "";
+
+
+  const firstDay =
+    new Date(year, month, 1)
+      .getDay();
+
+
+  const mondayIndex =
+    firstDay === 0
+      ? 6
+      : firstDay - 1;
+
+
+  const daysInMonth =
+    new Date(year, month + 1, 0)
+      .getDate();
+
+
+  for (
+    let i = 0;
+    i < mondayIndex;
+    i++
+  ) {
+
+    const empty =
+      document.createElement("div");
+
+    empty.className =
+      "day empty";
+
+    grid.appendChild(empty);
+  }
+
+
+  for (
+    let day = 1;
+    day <= daysInMonth;
+    day++
+  ) {
+
+    const date =
+      new Date(year, month, day);
+
+    const element =
+      document.createElement("div");
+
+    element.className =
+      "day";
+
+    element.textContent =
+      day;
+
+
+    const dateKey =
+      formatDate(date);
+
+
+    if (
+      date < startDate ||
+      date > endDate
+    ) {
+
+      element.classList.add(
+        "locked"
+      );
+
+    } else {
+
+      element.onclick =
+        () => openDay(date);
+
+    }
+
+
+    if (
+      wishedDays[dateKey]
+    ) {
+
+      element.classList.add(
+        "wished"
+      );
+
+    }
+
+
+    grid.appendChild(element);
+
+  }
+
+}
+
+
+/* =========================
+   ФОРМАТ ДАТЫ
+========================= */
+
+function formatDate(date) {
+
+  const d =
+    String(date.getDate())
+      .padStart(2, "0");
+
+  const m =
+    String(date.getMonth() + 1)
+      .padStart(2, "0");
+
+  const y =
+    date.getFullYear();
+
+  return `${d}.${m}.${y}`;
+}
+
+
+/* =========================
+   ВЫБОР ДНЯ
+========================= */
+
+function openDay(date) {
+
+  if (
+    date < startDate ||
+    date > endDate
+  ) {
+
+    return;
+
+  }
+
+
+  selectedDate = date;
 
 
   document
-    .getElementById("wishTitle")
+    .getElementById("modalDate")
     .textContent =
-    title;
+      formatDate(date);
+
+
+  document
+    .getElementById("categoryModal")
+    .classList.add("active");
+
+}
+
+
+/* =========================
+   КАТЕГОРИЯ
+========================= */
+
+function selectCategory(category) {
+
+  selectedCategory =
+    category;
+
+
+  document
+    .getElementById("categoryModal")
+    .classList.remove("active");
+
+
+  document
+    .getElementById("selectedCategory")
+    .textContent =
+      category;
+
+
+  document
+    .getElementById("selectedDate")
+    .textContent =
+      formatDate(selectedDate);
 
 
   document
@@ -875,27 +1463,28 @@ function openWish(icon, title) {
     .value = "";
 
 
-  document
-    .getElementById("wishText")
-    .focus();
+  showPage("wishPage");
 
 }
 
 
+/* =========================
+   СОХРАНЕНИЕ ЖЕЛАНИЯ
+========================= */
 
 function sealWish() {
 
-  const wish =
+  const text =
     document
       .getElementById("wishText")
       .value
       .trim();
 
 
-  if (!wish) {
+  if (!text) {
 
     alert(
-      "Сначала напиши желание ♡"
+      "Сначала напиши своё желание ♡"
     );
 
     return;
@@ -903,49 +1492,89 @@ function sealWish() {
   }
 
 
-  /*
-   * Позже здесь подключим
-   * Telegram Bot API.
-   *
-   * Тогда текст желания
-   * автоматически придёт
-   * тебе в Telegram.
-   */
+  const key =
+    formatDate(selectedDate);
 
 
-  document
-    .getElementById("wishScreen")
-    .classList.remove("active");
+  wishedDays[key] = {
+
+    category:
+      selectedCategory,
+
+    text:
+      text
+
+  };
 
 
-  document
-    .getElementById("successScreen")
-    .classList.add("active");
+  showPage("successPage");
 
 }
 
 
+/* =========================
+   МЕСЯЦЫ
+========================= */
 
-function goHome() {
+function previousMonth() {
 
-  document
-    .getElementById("wishScreen")
-    .classList.remove("active");
+  currentMonth =
+    new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() - 1,
+      1
+    );
 
-
-  document
-    .getElementById("successScreen")
-    .classList.remove("active");
-
-
-  document
-    .getElementById("homeScreen")
-    .classList.add("active");
+  renderCalendar();
 
 }
+
+
+function nextMonth() {
+
+  currentMonth =
+    new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() + 1,
+      1
+    );
+
+  renderCalendar();
+
+}
+
+
+/* =========================
+   ЗАКРЫТИЕ MODAL
+========================= */
+
+document
+  .getElementById("categoryModal")
+  .addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target === this
+      ) {
+
+        this.classList.remove(
+          "active"
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   СТАРТ
+========================= */
+
+renderCalendar();
 
 </script>
-
 
 </body>
 </html>
