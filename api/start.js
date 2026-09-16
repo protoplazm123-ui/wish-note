@@ -18,6 +18,23 @@ export default async function handler(req, res) {
     console.log("MY CHAT ID:", chatId);
     
     const text = update.message.text || "";
+    if (text.startsWith("/myid")) {
+  await fetch(
+    `https://api.telegram.org/bot${token}/sendMessage`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: `Твой Chat ID: ${chatId}`
+      })
+    }
+  );
+
+  return res.status(200).json({ ok: true });
+}
     // Реагируем только на команду /start
     if (!text.startsWith("/start")) {
       return res.status(200).json({ ok: true });
