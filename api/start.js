@@ -15,6 +15,8 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true });
     }
     const chatId = update.message.chat.id;
+    console.log("MY CHAT ID:", chatId);
+    
     const text = update.message.text || "";
     // Реагируем только на команду /start
     if (!text.startsWith("/start")) {
