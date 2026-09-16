@@ -2218,6 +2218,10 @@ function selectCategory(
    TELEGRAM
 ========================= */
 
+    /* =========================
+   TELEGRAM
+========================= */
+
 async function sendWishToOwner(
   dateKey,
   category,
@@ -2282,6 +2286,8 @@ async function sendWishToOwner(
   }
 
 }
+
+
 /* =========================
    SEAL WISH
 ========================= */
@@ -2375,39 +2381,7 @@ async function sealWish() {
 
 
     // 🧪 ТЕСТОВЫЙ РЕЖИМ
-// Дата не сохраняется как использованная
-
-// wishedDays[key] = true;
-// saveWishedDays();
-    if (
-      tg &&
-      tg.sendData
-    ) {
-
-      try {
-
-        tg.sendData(
-          JSON.stringify({
-
-            date: key,
-
-            category:
-              selectedCategory,
-
-            text: text
-
-          })
-        );
-
-      } catch (e) {
-
-      }
-
-    }
-
-
-    // 🧪 ТЕСТОВЫЙ РЕЖИМ
-    // Дата не сохраняется как использованная
+    // Дата НЕ сохраняется как использованная.
 
     // wishedDays[key] = true;
     // saveWishedDays();
@@ -2420,39 +2394,11 @@ async function sealWish() {
 
   } catch (error) {
 
-    if (tg) {
-
-      tg.showAlert(
-        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
-      );
-
-    } else {
-
-      alert(
-        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
-      );
-
-    }
-
-  } finally {
-
-    sealButton.disabled =
-      false;
-
-
-    sealButton.textContent =
-      "♡ ЗАПЕЧАТАТЬ ЖЕЛАНИЕ";
-
-  }
-    
-
-
-    showPage(
-      "successPage"
+    console.error(
+      "Ошибка отправки:",
+      error
     );
 
-
-  } catch (error) {
 
     if (tg) {
 
