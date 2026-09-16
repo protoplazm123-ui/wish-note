@@ -2374,11 +2374,77 @@ async function sealWish() {
     }
 
 
-    wishedDays[key] =
-      true;
+    // 🧪 ТЕСТОВЫЙ РЕЖИМ
+// Дата не сохраняется как использованная
+
+// wishedDays[key] = true;
+// saveWishedDays();
+    if (
+      tg &&
+      tg.sendData
+    ) {
+
+      try {
+
+        tg.sendData(
+          JSON.stringify({
+
+            date: key,
+
+            category:
+              selectedCategory,
+
+            text: text
+
+          })
+        );
+
+      } catch (e) {
+
+      }
+
+    }
 
 
-    saveWishedDays();
+    // 🧪 ТЕСТОВЫЙ РЕЖИМ
+    // Дата не сохраняется как использованная
+
+    // wishedDays[key] = true;
+    // saveWishedDays();
+
+
+    showPage(
+      "successPage"
+    );
+
+
+  } catch (error) {
+
+    if (tg) {
+
+      tg.showAlert(
+        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
+      );
+
+    } else {
+
+      alert(
+        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
+      );
+
+    }
+
+  } finally {
+
+    sealButton.disabled =
+      false;
+
+
+    sealButton.textContent =
+      "♡ ЗАПЕЧАТАТЬ ЖЕЛАНИЕ";
+
+  }
+    
 
 
     showPage(
