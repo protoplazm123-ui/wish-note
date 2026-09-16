@@ -15,10 +15,6 @@
 
 <style>
 
-/* =========================
-   ОСНОВА
-========================= */
-
 * {
   box-sizing: border-box;
 }
@@ -34,19 +30,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: #fff;
 
+  background-color: #1a1418;
+
   background:
     linear-gradient(
       rgba(0, 0, 0, 0.80),
       rgba(0, 0, 0, 0.80)
     ),
     url("IMG_1023.jpeg")
-    center center / cover fixed no-repeat;
+    center center / cover fixed no-repeat,
+    #1a1418;
 }
-
-
-/* =========================
-   ПРИЛОЖЕНИЕ
-========================= */
 
 .app {
   width: 100%;
@@ -65,11 +59,6 @@ body {
   position: relative;
   z-index: 1;
 }
-
-
-/* =========================
-   КОНВЕРТ
-========================= */
 
 .envelope-page {
   position: fixed;
@@ -120,11 +109,6 @@ body {
   color: #9a7180;
 }
 
-
-/* =========================
-   КОНВЕРТ — СЦЕНА
-========================= */
-
 .envelope-wrap {
   position: relative;
 
@@ -135,13 +119,8 @@ body {
 
   margin: 0 auto;
 
-  cursor: pointer;
-
   perspective: 1000px;
 }
-
-
-/* Сам конверт */
 
 .envelope {
   position: absolute;
@@ -161,11 +140,6 @@ body {
 
   overflow: visible;
 }
-
-
-/* =========================
-   ЗАДНЯЯ ЧАСТЬ
-========================= */
 
 .envelope-back {
   position: absolute;
@@ -187,11 +161,6 @@ body {
 
   overflow: hidden;
 }
-
-
-/* =========================
-   ПИСЬМО
-========================= */
 
 .letter {
   position: absolute;
@@ -215,10 +184,6 @@ body {
   box-shadow:
     0 5px 20px rgba(0,0,0,0.12);
 
-  /*
-   * В закрытом состоянии письмо
-   * находится внутри конверта.
-   */
   transform:
     translateY(35px);
 
@@ -227,11 +192,6 @@ body {
 
   overflow: hidden;
 }
-
-
-/* =========================
-   ПЕРЕДНИЕ СКЛАДКИ КОНВЕРТА
-========================= */
 
 .envelope-back::before {
   content: "";
@@ -279,11 +239,6 @@ body {
     1px solid #dfd1d6;
 }
 
-
-/* =========================
-   КЛАПАН
-========================= */
-
 .envelope-flap {
   position: absolute;
 
@@ -317,12 +272,9 @@ body {
 
   border-top:
     1px solid #ded3d7;
+
+  pointer-events: none;
 }
-
-
-/* =========================
-   ПЕЧАТЬ
-========================= */
 
 .envelope-seal {
   position: absolute;
@@ -355,13 +307,17 @@ body {
 
   transition:
     opacity 0.45s ease,
-    transform 0.45s ease;
+    transform 0.45s ease,
+    background 0.15s ease;
+
+  cursor: pointer;
 }
 
-
-/* =========================
-   ТЕКСТ ПОД КОНВЕРТОМ
-========================= */
+.envelope-seal:active {
+  transform:
+    translateX(-50%)
+    scale(0.9);
+}
 
 .envelope-instruction {
   margin-top: 25px;
@@ -382,35 +338,15 @@ body {
   color: #a0969c;
 }
 
-
-/* =========================
-   ОТКРЫТИЕ КОНВЕРТА
-========================= */
-
-/*
- * Клапан открывается вверх.
- */
-
 .envelope-wrap.opened .envelope-flap {
   transform:
     rotateX(180deg);
 }
 
-
-/*
- * После открытия письмо
- * красиво выходит вверх.
- */
-
 .envelope-wrap.opened .letter {
   transform:
     translateY(-80px);
 }
-
-
-/*
- * Печать исчезает.
- */
 
 .envelope-wrap.opened .envelope-seal {
   opacity: 0;
@@ -418,16 +354,9 @@ body {
   transform:
     translateX(-50%)
     scale(0.7);
+
+  pointer-events: none;
 }
-
-.envelope-wrap.opened {
-  cursor: default;
-}
-
-
-/* =========================
-   СТРАНИЦЫ
-========================= */
 
 .page {
   display: none;
@@ -451,11 +380,6 @@ body {
   }
 
 }
-
-
-/* =========================
-   ДЕКОР
-========================= */
 
 .decor {
   position: fixed;
@@ -494,11 +418,6 @@ body {
 
   font-size: 25px;
 }
-
-
-/* =========================
-   ПЕРВАЯ СТРАНИЦА
-========================= */
 
 .intro {
   position: relative;
@@ -644,11 +563,6 @@ body {
   font-weight: 700;
 }
 
-
-/* =========================
-   КНОПКИ
-========================= */
-
 .main-button {
   width: 100%;
 
@@ -689,11 +603,6 @@ body {
 .main-button:disabled {
   opacity: 0.6;
 }
-
-
-/* =========================
-   КАЛЕНДАРЬ
-========================= */
 
 .calendar-header {
   text-align: center;
@@ -767,11 +676,6 @@ body {
   cursor: pointer;
 }
 
-
-/* =========================
-   ДНИ НЕДЕЛИ
-========================= */
-
 .weekdays,
 .calendar-grid {
   display: grid;
@@ -793,11 +697,6 @@ body {
 
   opacity: 0.7;
 }
-
-
-/* =========================
-   ДНИ
-========================= */
 
 .day {
   aspect-ratio: 1 / 1;
@@ -867,11 +766,6 @@ body {
   font-size: 11px;
 }
 
-
-/* =========================
-   ФОТО-БЛОК
-========================= */
-
 .photo-strip {
   display: grid;
 
@@ -922,11 +816,6 @@ body {
   background-image:
     url("IMG_1027.jpeg");
 }
-
-
-/* =========================
-   MODAL
-========================= */
 
 .modal-overlay {
   position: fixed;
@@ -1022,11 +911,6 @@ body {
   font-size: 14px;
 }
 
-
-/* =========================
-   КАТЕГОРИИ
-========================= */
-
 .categories {
   display: grid;
 
@@ -1072,11 +956,6 @@ body {
 
   font-weight: 900;
 }
-
-
-/* =========================
-   ФОРМА ЖЕЛАНИЯ
-========================= */
 
 .wish-page {
   padding-top: 15px;
@@ -1207,11 +1086,6 @@ textarea::placeholder {
   color: #a56f83;
 }
 
-
-/* =========================
-   УСПЕХ
-========================= */
-
 .success {
   min-height: 80vh;
 
@@ -1276,11 +1150,6 @@ textarea::placeholder {
   font-size: 14px;
 }
 
-
-/* =========================
-   АДАПТАЦИЯ
-========================= */
-
 @media (max-width: 380px) {
 
   .logo {
@@ -1316,10 +1185,6 @@ textarea::placeholder {
 <body>
 
 
-<!-- =========================
-     КОНВЕРТ
-========================= -->
-
 <div
   id="envelopePage"
   class="envelope-page">
@@ -1333,18 +1198,13 @@ textarea::placeholder {
 
     <div
       id="envelopeWrap"
-      class="envelope-wrap"
-      onclick="openEnvelope()">
+      class="envelope-wrap">
 
 
       <div class="envelope">
 
-        <!-- Задняя часть конверта -->
-
         <div class="envelope-back"></div>
 
-
-        <!-- Письмо -->
 
         <div class="letter">
 
@@ -1359,14 +1219,12 @@ textarea::placeholder {
         </div>
 
 
-        <!-- Верхний клапан -->
-
         <div class="envelope-flap"></div>
 
 
-        <!-- Печать -->
-
-        <div class="envelope-seal">
+        <div
+          class="envelope-seal"
+          onclick="openEnvelope()">
           ♡
         </div>
 
@@ -1376,7 +1234,7 @@ textarea::placeholder {
 
 
     <div class="envelope-instruction">
-      НАЖМИ, ЧТОБЫ ОТКРЫТЬ ♡
+      НАЖМИ НА СЕРДЕЧКО, ЧТОБЫ ОТКРЫТЬ ♡
     </div>
 
     <div class="envelope-sub">
@@ -1390,8 +1248,6 @@ textarea::placeholder {
 
 <div class="app">
 
-  <!-- ДЕКОР -->
-
   <div class="decor one">♡</div>
 
   <div class="decor two">🦇</div>
@@ -1400,10 +1256,6 @@ textarea::placeholder {
 
   <div class="decor four">✦</div>
 
-
-  <!-- =====================
-       ПЕРВАЯ СТРАНИЦА
-  ====================== -->
 
   <section
     id="introPage"
@@ -1469,10 +1321,6 @@ textarea::placeholder {
 
   </section>
 
-
-  <!-- =====================
-       КАЛЕНДАРЬ
-  ====================== -->
 
   <section
     id="calendarPage"
@@ -1549,10 +1397,6 @@ textarea::placeholder {
   </section>
 
 
-  <!-- =====================
-       СТРАНИЦА ЖЕЛАНИЯ
-  ====================== -->
-
   <section
     id="wishPage"
     class="page wish-page">
@@ -1601,10 +1445,6 @@ textarea::placeholder {
   </section>
 
 
-  <!-- =====================
-       УСПЕХ
-  ====================== -->
-
   <section
     id="successPage"
     class="page success">
@@ -1644,10 +1484,6 @@ textarea::placeholder {
 
 </div>
 
-
-<!-- =========================
-     МОДАЛЬНОЕ ОКНО
-========================= -->
 
 <div
   id="categoryModal"
@@ -1739,10 +1575,6 @@ textarea::placeholder {
 
 <script>
 
-/* =========================
-   TELEGRAM WEB APP
-========================= */
-
 const tg =
   window.Telegram
     ? window.Telegram.WebApp
@@ -1755,11 +1587,6 @@ if (tg) {
   tg.expand();
 
 }
-
-
-/* =========================
-   КОНВЕРТ
-========================= */
 
 let envelopeOpened = false;
 
@@ -1789,11 +1616,6 @@ function openEnvelope() {
   );
 
 
-  /*
-   * Сначала открываем конверт.
-   * Затем убираем экран конверта.
-   */
-
   setTimeout(() => {
 
     envelopePage.classList.add(
@@ -1803,11 +1625,6 @@ function openEnvelope() {
   }, 1300);
 
 }
-
-
-/* =========================
-   ДАТЫ
-========================= */
 
 const startDate =
   new Date(2026, 8, 26);
@@ -1821,11 +1638,6 @@ let currentMonth =
 let selectedDate = null;
 
 let selectedCategory = null;
-
-
-/* =========================
-   ХРАНИЛИЩЕ
-========================= */
 
 let wishedDays = {};
 
@@ -1895,11 +1707,6 @@ function saveWishedDays() {
 
 }
 
-
-/* =========================
-   СТРАНИЦЫ
-========================= */
-
 function showPage(id) {
 
   document
@@ -1943,11 +1750,6 @@ function backToCalendar() {
   renderCalendar();
 
 }
-
-
-/* =========================
-   КАЛЕНДАРЬ
-========================= */
 
 const months = [
 
@@ -2125,11 +1927,6 @@ function renderCalendar() {
 
 }
 
-
-/* =========================
-   ФОРМАТ ДАТЫ
-========================= */
-
 function formatDate(date) {
 
   const d =
@@ -2151,11 +1948,6 @@ function formatDate(date) {
   return `${d}.${m}.${y}`;
 
 }
-
-
-/* =========================
-   ВЫБОР ДНЯ
-========================= */
 
 function openDay(date) {
 
@@ -2218,11 +2010,6 @@ function openDay(date) {
 
 }
 
-
-/* =========================
-   КАТЕГОРИЯ
-========================= */
-
 function selectCategory(
   category
 ) {
@@ -2270,11 +2057,6 @@ function selectCategory(
   );
 
 }
-
-
-/* =========================
-   ОТПРАВКА ЖЕЛАНИЯ
-========================= */
 
 async function sendWishToOwner(
   dateKey,
@@ -2345,11 +2127,6 @@ async function sendWishToOwner(
   }
 
 }
-
-
-/* =========================
-   СОХРАНЕНИЕ ЖЕЛАНИЯ
-========================= */
 
 async function sealWish() {
 
@@ -2434,8 +2211,6 @@ async function sealWish() {
 
       } catch (e) {
 
-        // Ничего не делаем
-
       }
 
     }
@@ -2482,11 +2257,6 @@ async function sealWish() {
 
 }
 
-
-/* =========================
-   МЕСЯЦЫ
-========================= */
-
 function previousMonth() {
 
   currentMonth =
@@ -2528,11 +2298,6 @@ function nextMonth() {
 
 }
 
-
-/* =========================
-   ЗАКРЫТИЕ MODAL
-========================= */
-
 document
   .getElementById(
     "categoryModal"
@@ -2553,11 +2318,6 @@ document
 
     }
   );
-
-
-/* =========================
-   СТАРТ
-========================= */
 
 loadWishedDays();
 
