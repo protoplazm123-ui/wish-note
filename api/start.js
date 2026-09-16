@@ -6,14 +6,21 @@ export default async function handler(req, res) {
     const token = process.env.BOT_TOKEN;
     if (!token) {
       console.error("BOT_TOKEN is missing");
-      return res.status(500).json({ error: "BOT_TOKEN is missing" });
+      return res.status(500).json({
+        error: "BOT_TOKEN is missing"
+      });
     }
     const update = req.body;
     if (!update || !update.message) {
       return res.status(200).json({ ok: true });
     }
     const chatId = update.message.chat.id;
-    const text = `💌 WISH NOTE
+    const text = update.message.text || "";
+    // Реагируем только на команду /start
+    if (!text.startsWith("/start")) {
+      return res.status(200).json({ ok: true });
+    }
+    const message = `💌 WISH NOTE
 А вот и твой подарочек, любима квиточка♡
 Не забывай пользоваться им каждый день 🫶🏼
 Здесь можно загадать всё, что угодно — от маленького желания до того, о чём ты давно мечтал.
@@ -27,7 +34,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           chat_id: chatId,
-          text: text,
+          text: message,
           reply_markup: {
             inline_keyboard: [
               [
