@@ -11,8 +11,6 @@
 
 <title>WISH NOTE ♡</title>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <style>
 
 /* =========================
@@ -39,7 +37,7 @@ body {
       rgba(0, 0, 0, 0.45),
       rgba(0, 0, 0, 0.45)
     ),
-    url("IMG_1023.jpeg")
+    url("BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png")
     center center / cover fixed no-repeat;
 }
 
@@ -152,7 +150,7 @@ body {
   border-radius: 50%;
 
   background:
-    url("IMG_1024.jpeg")
+    url("BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png")
     center / cover;
 
   border: 5px solid rgba(255,255,255,0.85);
@@ -287,10 +285,6 @@ body {
 
 .main-button:active {
   transform: scale(0.97);
-}
-
-.main-button:disabled {
-  opacity: 0.6;
 }
 
 
@@ -443,14 +437,29 @@ body {
 }
 
 .day.wished::after {
-  content: "🐾";
+  content: "♡";
 
   position: absolute;
 
-  bottom: -1px;
-  right: 2px;
+  bottom: 3px;
+  right: 5px;
 
-  font-size: 11px;
+  font-size: 9px;
+
+  color: #ffb6cf;
+}
+
+.day.completed::after {
+  content: "✓";
+
+  position: absolute;
+
+  bottom: 3px;
+  right: 5px;
+
+  font-size: 9px;
+
+  color: #b8f0ce;
 }
 
 
@@ -462,7 +471,7 @@ body {
   display: grid;
 
   grid-template-columns:
-    1fr 1fr 1fr;
+    1fr 1fr;
 
   gap: 10px;
 
@@ -470,7 +479,7 @@ body {
 }
 
 .photo-card {
-  height: 130px;
+  height: 150px;
 
   border-radius: 20px;
 
@@ -478,8 +487,9 @@ body {
 
   border: 2px solid rgba(255,255,255,0.3);
 
-  background-size: cover;
-  background-position: center;
+  background:
+    url("BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png")
+    center / cover;
 
   box-shadow:
     0 10px 30px rgba(0,0,0,0.2);
@@ -487,18 +497,6 @@ body {
 
 .photo-card:nth-child(2) {
   transform: translateY(12px);
-}
-
-.photo-card.p1 {
-  background-image: url("IMG_1025.jpeg");
-}
-
-.photo-card.p2 {
-  background-image: url("IMG_1026.jpeg");
-}
-
-.photo-card.p3 {
-  background-image: url("IMG_1027.jpeg");
 }
 
 
@@ -757,20 +755,6 @@ textarea::placeholder {
   cursor: pointer;
 }
 
-.seal-button:disabled {
-  opacity: 0.6;
-}
-
-.wish-hint {
-  margin-top: 10px;
-
-  text-align: center;
-
-  font-size: 12px;
-
-  color: #a56f83;
-}
-
 
 /* =========================
    УСПЕХ
@@ -1009,9 +993,8 @@ textarea::placeholder {
 
     <div class="photo-strip">
 
-      <div class="photo-card p1"></div>
-      <div class="photo-card p2"></div>
-      <div class="photo-card p3"></div>
+      <div class="photo-card"></div>
+      <div class="photo-card"></div>
 
     </div>
 
@@ -1053,17 +1036,12 @@ textarea::placeholder {
       </textarea>
 
       <button
-        id="sealButton"
         class="seal-button"
         onclick="sealWish()">
 
         ♡ ЗАПЕЧАТАТЬ ЖЕЛАНИЕ
 
       </button>
-
-      <div class="wish-hint">
-        Его увидит только Юля ♡
-      </div>
 
     </div>
 
@@ -1209,28 +1187,6 @@ textarea::placeholder {
 <script>
 
 /* =========================
-   TELEGRAM WEB APP
-========================= */
-
-// Впишите сюда токен вашего бота (тот же, что в bot.py).
-// Он нужен, чтобы страница могла напрямую отправить Юле сообщение
-// с желанием через Telegram Bot API — без своего сервера.
-const BOT_TOKEN = "ВСТАВЬТЕ_ТОКЕН_БОТА_СЮДА";
-
-// chat_id Юли — куда будут приходить желания.
-const OWNER_CHAT_ID = "7771844979";
-
-const tg = window.Telegram
-  ? window.Telegram.WebApp
-  : null;
-
-if (tg) {
-  tg.ready();
-  tg.expand();
-}
-
-
-/* =========================
    ДАТЫ
 ========================= */
 
@@ -1247,64 +1203,7 @@ let selectedDate = null;
 
 let selectedCategory = null;
 
-// Локальный кэш отмеченных дней (обновляется из CloudStorage при старте)
 let wishedDays = {};
-
-
-/* =========================
-   ХРАНИЛИЩЕ ОТМЕТОК (CloudStorage)
-========================= */
-
-const STORAGE_KEY = "wishnote_wished_days";
-
-function loadWishedDays() {
-
-  if (
-    tg &&
-    tg.CloudStorage
-  ) {
-
-    tg.CloudStorage.getItem(
-      STORAGE_KEY,
-      (error, value) => {
-
-        if (!error && value) {
-
-          try {
-            wishedDays = JSON.parse(value);
-          } catch (e) {
-            wishedDays = {};
-          }
-
-          renderCalendar();
-
-        }
-
-      }
-    );
-
-  }
-
-}
-
-function saveWishedDays() {
-
-  const value =
-    JSON.stringify(wishedDays);
-
-  if (
-    tg &&
-    tg.CloudStorage
-  ) {
-
-    tg.CloudStorage.setItem(
-      STORAGE_KEY,
-      value
-    );
-
-  }
-
-}
 
 
 /* =========================
@@ -1421,9 +1320,6 @@ function renderCalendar() {
   }
 
 
-  const today = new Date();
-
-
   for (
     let day = 1;
     day <= daysInMonth;
@@ -1460,18 +1356,6 @@ function renderCalendar() {
 
       element.onclick =
         () => openDay(date);
-
-    }
-
-
-    if (
-      date.toDateString() ===
-      today.toDateString()
-    ) {
-
-      element.classList.add(
-        "today"
-      );
 
     }
 
@@ -1525,30 +1409,6 @@ function openDay(date) {
     date < startDate ||
     date > endDate
   ) {
-
-    return;
-
-  }
-
-
-  const dateKey =
-    formatDate(date);
-
-
-  if (
-    wishedDays[dateKey]
-  ) {
-
-    // На этот день уже загадано желание
-    if (tg) {
-      tg.showAlert(
-        "На этот день ты уже загадал(а) желание ♡"
-      );
-    } else {
-      alert(
-        "На этот день ты уже загадал(а) желание ♡"
-      );
-    }
 
     return;
 
@@ -1609,51 +1469,10 @@ function selectCategory(category) {
 
 
 /* =========================
-   ОТПРАВКА ЖЕЛАНИЯ ЮЛЕ
-========================= */
-
-async function sendWishToOwner(dateKey, category, text) {
-
-  const message =
-    "🐾 Новое желание в Wish Note!\n\n" +
-    "📅 Дата: " + dateKey + "\n" +
-    "🏷 Категория: " + category + "\n\n" +
-    "💌 " + text;
-
-  const url =
-    "https://api.telegram.org/bot" +
-    BOT_TOKEN +
-    "/sendMessage";
-
-  const response = await fetch(url, {
-
-    method: "POST",
-
-    headers: {
-      "Content-Type": "application/json"
-    },
-
-    body: JSON.stringify({
-      chat_id: OWNER_CHAT_ID,
-      text: message
-    })
-
-  });
-
-  if (!response.ok) {
-    throw new Error(
-      "Telegram API error: " + response.status
-    );
-  }
-
-}
-
-
-/* =========================
    СОХРАНЕНИЕ ЖЕЛАНИЯ
 ========================= */
 
-async function sealWish() {
+function sealWish() {
 
   const text =
     document
@@ -1664,85 +1483,31 @@ async function sealWish() {
 
   if (!text) {
 
-    if (tg) {
-      tg.showAlert(
-        "Сначала напиши своё желание ♡"
-      );
-    } else {
-      alert(
-        "Сначала напиши своё желание ♡"
-      );
-    }
+    alert(
+      "Сначала напиши своё желание ♡"
+    );
 
     return;
 
   }
 
 
-  const sealButton =
-    document.getElementById("sealButton");
-
-  sealButton.disabled = true;
-  sealButton.textContent = "Отправляю...";
-
-
   const key =
     formatDate(selectedDate);
 
 
-  try {
+  wishedDays[key] = {
 
-    await sendWishToOwner(
-      key,
+    category:
       selectedCategory,
+
+    text:
       text
-    );
 
-    // Также пробуем sendData — если мини-апп открыт
-    // через кнопку клавиатуры, бот получит данные и в service-сообщении
-    if (
-      tg &&
-      tg.sendData
-    ) {
+  };
 
-      try {
 
-        tg.sendData(JSON.stringify({
-          date: key,
-          category: selectedCategory,
-          text: text
-        }));
-
-      } catch (e) {
-        // sendData доступен не для всех типов кнопок — это нормально
-      }
-
-    }
-
-    wishedDays[key] = true;
-
-    saveWishedDays();
-
-    showPage("successPage");
-
-  } catch (error) {
-
-    if (tg) {
-      tg.showAlert(
-        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
-      );
-    } else {
-      alert(
-        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
-      );
-    }
-
-  } finally {
-
-    sealButton.disabled = false;
-    sealButton.textContent = "♡ ЗАПЕЧАТАТЬ ЖЕЛАНИЕ";
-
-  }
+  showPage("successPage");
 
 }
 
@@ -1807,7 +1572,6 @@ document
    СТАРТ
 ========================= */
 
-loadWishedDays();
 renderCalendar();
 
 </script>
