@@ -1,48 +1,92 @@
-api/telegram.js
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
+  try {
+    if (req.method !== "POST") {
+      return res.status(200).json({ ok: true });
+    }
 
-  if (req.method !== "POST") {
-    res.status(200).send("OK");
-    return;
-  }
+    const BOT_TOKEN = process.env.BOT_TOKEN;
+    const OWNER_CHAT_ID = "7771844979";
 
-  const BOT_TOKEN = "8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts";
-  const WEBAPP_URL = "https://wish-note-seven.vercel.app/";
+    if (!BOT_TOKEN) {
+      console.error("BOT_TOKEN is missing");
+      return res.status(500).json({
+        ok: false,
+        error: "BOT_TOKEN is missing"
+      });
+    }
 
-  const update = req.body;
-  const message = update.message;
+    const body = req.body || {};
 
-  if (message && message.text && message.text.startsWith("/start")) {
+    // Получаем данные, которые отправляет Wish Note
+    const wish =
+      body.wish ||
+      body.text ||
+      body.message ||
+      "";
 
-    const chatId = message.chat.id;
+    const category =
+      body.category ||
+      "Без категории";
 
-    const welcomeText =
-      "У меня для тебя есть маленький подарок ♡\n\n" +
-      "Каждый день ты можешь оставить одно желание — маленькое или совершенно безумное.\n\n" +
-      "Выбери категорию, напиши желание и запечатай его. После этого оно отправится мне, а тебе останется только ждать его исполнения ✨";
+    const username =
+      body.username ||
+      body.user?.username ||
+      "не указан";
 
-    await fetch(`https://api.telegram.org/bot${8670862634:AAEgUL82bpG7b6oY_xAKKlBpD0ubguZKyts}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: welcomeText,
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "♡ ОТКРЫТЬ WISH NOTE",
-                web_app: { url: WEBAPP_URL }
-              }
-            ]
-          ]
-        }
-      })
+    const firstName =
+      body.first_name ||
+      body.user?.first_name ||
+      "";
+
+    if (!wish.trim()) {
+      return res.status(400).json({
+        ok: false,
+        error: "Wish is empty"
+      });
+    }
+
+    const message =
+      `💌 НОВОЕ ЖЕЛАНИЕ\n\n` +
+      `👤 От: ${firstName || "Пользователь"}\n` +
+      `@${username.replace("@", "")}\n\n` +
+      `📂 Категория: ${category}\n\n` +
+      `✨ Желание:\n${wish}`;
+
+    const telegramResponse = await fetch(
+      `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: OWNER_CHAT_ID,
+          text: message
+        })
+      }
+    );
+
+    const result = await telegramResponse.json();
+
+    console.log("Telegram response:", result);
+
+    if (!result.ok) {
+      return res.status(500).json({
+        ok: false,
+        error: result.description || "Telegram error"
+      });
+    }
+
+    return res.status(200).json({
+      ok: true
     });
 
+  } catch (error) {
+    console.error("Server error:", error);
+
+    return res.status(500).json({
+      ok: false,
+      error: error.message
+    });
   }
-
-  res.status(200).send("OK");
-
-};
-
+}
