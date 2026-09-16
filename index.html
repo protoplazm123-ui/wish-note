@@ -60,6 +60,11 @@ body {
   z-index: 1;
 }
 
+
+/* =========================
+   ENVELOPE
+========================= */
+
 .envelope-page {
   position: fixed;
   inset: 0;
@@ -82,11 +87,11 @@ body {
 
   transition:
     opacity 0.7s ease,
-    visibility 1.0s ease;
+    visibility 0.7s ease;
 }
 
 .envelope-page.hidden {
-  opacity: 1;
+  opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
@@ -109,48 +114,28 @@ body {
   color: #9a7180;
 }
 
-.envelope-flap {
-  position: absolute;
 
-  z-index: 5;
+/* ОБЛАСТЬ КОНВЕРТА */
 
-  top: 0;
-  left: 0;
+.envelope-wrap {
+  position: relative;
 
   width: 100%;
-  height: 125px;
+  max-width: 390px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #fffefe,
-      #e9dfe3
-    );
+  height: 250px;
 
-  clip-path:
-    polygon(
-      0 0,
-      100% 0,
-      50% 100%
-    );
-
-  transform-origin: top center;
-
-  transition:
-    transform 0.9s
-    cubic-bezier(.2,.8,.2,1),
-    opacity 0.7s ease;
-
-  border-top:
-    1px solid #ded3d7;
+  margin: 0 auto;
 }
 
+
+/* САМ КОНВЕРТ */
 
 .envelope {
   position: absolute;
 
   left: 50%;
-  bottom: 15px;
+  top: 25px;
 
   width: 100%;
   height: 205px;
@@ -162,11 +147,11 @@ body {
       0 20px 35px rgba(0,0,0,0.18)
     );
 
-  overflow: visible;
-
   border-radius: 8px;
 }
 
+
+/* ЗАДНЯЯ ЧАСТЬ КОНВЕРТА */
 
 .envelope-back {
   position: absolute;
@@ -189,62 +174,6 @@ body {
   overflow: hidden;
 }
 
-.letter {
-  position: absolute;
-
-  z-index: 2;
-
-  left: 50%;
-
-  bottom: 10px;
-
-  width: 84%;
-
-  height: 175px;
-
-  padding: 25px 20px;
-
-  background: #fff;
-
-  border-radius: 4px;
-
-  box-shadow:
-    0 5px 20px rgba(0,0,0,0.12);
-
-  transform:
-    translateX(-50%)
-    translateY(35px);
-
-  opacity: 0;
-
-  transition:
-    transform 1s cubic-bezier(.2,.8,.2,1),
-    opacity 0.5s ease 0.5s;
-
-  overflow: hidden;
-}
-.letter-title {
-  font-size: 17px;
-
-  font-weight: 900;
-
-  color: #4d474d;
-
-  letter-spacing: 1px;
-}
-
-.letter-small {
-  margin-top: 8px;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 2px;
-
-  color: #ad7189;
-}
-
 .envelope-back::before {
   content: "";
 
@@ -257,7 +186,6 @@ body {
   bottom: -35%;
 
   width: 80%;
-
   height: 85%;
 
   background: #f4ecef;
@@ -280,7 +208,6 @@ body {
   bottom: -35%;
 
   width: 80%;
-
   height: 85%;
 
   background: #f0e7ea;
@@ -290,6 +217,69 @@ body {
   border-top:
     1px solid #dfd1d6;
 }
+
+
+/* ПИСЬМО */
+
+.letter {
+  position: absolute;
+
+  z-index: 0;
+
+  left: 50%;
+
+  bottom: 10px;
+
+  width: 84%;
+
+  height: 175px;
+
+  padding: 25px 20px;
+
+  background: #fff;
+
+  border-radius: 4px;
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,0.12);
+
+  transform:
+    translateX(-50%)
+    translateY(150px);
+
+  opacity: 0;
+
+  transition:
+    transform 1s cubic-bezier(.2,.8,.2,1),
+    opacity 0.5s ease;
+
+  overflow: hidden;
+}
+
+.letter-title {
+  font-size: 17px;
+
+  font-weight: 900;
+
+  color: #4d474d;
+
+  letter-spacing: 1px;
+}
+
+.letter-small {
+  margin-top: 8px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  color: #ad7189;
+}
+
+
+/* ВЕРХНИЙ КЛАПАН */
 
 .envelope-flap {
   position: absolute;
@@ -327,6 +317,9 @@ body {
 
   pointer-events: none;
 }
+
+
+/* СЕРДЕЧКО */
 
 .envelope-seal {
   position: absolute;
@@ -371,10 +364,40 @@ body {
     scale(0.9);
 }
 
+
+/* ОТКРЫТЫЙ КОНВЕРТ */
+
+.envelope-wrap.opened .envelope-flap {
+  transform:
+    rotateX(180deg);
+}
+
+.envelope-wrap.opened .letter {
+  z-index: 6;
+
+  transform:
+    translateX(-50%)
+    translateY(-55px);
+
+  opacity: 1;
+}
+
+.envelope-wrap.opened .envelope-seal {
+  opacity: 0;
+
+  transform:
+    translateX(-50%)
+    scale(0.7);
+
+  pointer-events: none;
+}
+
+
 .envelope-instruction {
   margin-top: 25px;
 
   font-size: 13px;
+
   font-weight: 700;
 
   color: #71666c;
@@ -390,36 +413,16 @@ body {
   color: #a0969c;
 }
 
-.envelope-wrap.opened .envelope-flap {
-  transform:
-  translateY(-40px)
-  scale(0,92);
-  
-  opacity: 0;
-}
 
-.envelope-wrap.opened .letter {
-  transform:
-    translateX(-50%)
-    translateY(-80px);
-
-  opacity: 1;
-}
-
-
-.envelope-wrap.opened .envelope-seal {
-  opacity: 0;
-
-  transform:
-    translateX(-50%)
-    scale(0.7);
-
-  pointer-events: none;
-}
+/* =========================
+   PAGES
+========================= */
 
 .page {
   display: none;
-  animation: pageAppear 0.45s ease;
+
+  animation:
+    pageAppear 0.45s ease;
 }
 
 .page.active {
@@ -439,6 +442,11 @@ body {
   }
 
 }
+
+
+/* =========================
+   DECOR
+========================= */
 
 .decor {
   position: fixed;
@@ -477,6 +485,11 @@ body {
 
   font-size: 25px;
 }
+
+
+/* =========================
+   INTRO
+========================= */
 
 .intro {
   position: relative;
@@ -662,6 +675,11 @@ body {
 .main-button:disabled {
   opacity: 0.6;
 }
+
+
+/* =========================
+   CALENDAR
+========================= */
 
 .calendar-header {
   text-align: center;
@@ -876,6 +894,11 @@ body {
     url("IMG_1027.jpeg");
 }
 
+
+/* =========================
+   MODAL
+========================= */
+
 .modal-overlay {
   position: fixed;
 
@@ -1016,6 +1039,11 @@ body {
   font-weight: 900;
 }
 
+
+/* =========================
+   WISH PAGE
+========================= */
+
 .wish-page {
   padding-top: 15px;
 }
@@ -1145,6 +1173,11 @@ textarea::placeholder {
   color: #a56f83;
 }
 
+
+/* =========================
+   SUCCESS
+========================= */
+
 .success {
   min-height: 80vh;
 
@@ -1209,6 +1242,11 @@ textarea::placeholder {
   font-size: 14px;
 }
 
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 380px) {
 
   .logo {
@@ -1224,7 +1262,7 @@ textarea::placeholder {
   }
 
   .envelope-wrap {
-    height: 225px;
+    height: 250px;
   }
 
   .envelope {
@@ -1244,6 +1282,10 @@ textarea::placeholder {
 <body>
 
 
+<!-- =========================
+     ENVELOPE PAGE
+========================= -->
+
 <div
   id="envelopePage"
   class="envelope-page">
@@ -1258,7 +1300,6 @@ textarea::placeholder {
     <div
       id="envelopeWrap"
       class="envelope-wrap">
-
 
       <div class="envelope">
 
@@ -1305,6 +1346,10 @@ textarea::placeholder {
 </div>
 
 
+<!-- =========================
+     APP
+========================= -->
+
 <div class="app">
 
   <div class="decor one">♡</div>
@@ -1315,6 +1360,8 @@ textarea::placeholder {
 
   <div class="decor four">✦</div>
 
+
+  <!-- INTRO -->
 
   <section
     id="introPage"
@@ -1380,6 +1427,8 @@ textarea::placeholder {
 
   </section>
 
+
+  <!-- CALENDAR -->
 
   <section
     id="calendarPage"
@@ -1456,6 +1505,8 @@ textarea::placeholder {
   </section>
 
 
+  <!-- WISH -->
+
   <section
     id="wishPage"
     class="page wish-page">
@@ -1504,6 +1555,8 @@ textarea::placeholder {
   </section>
 
 
+  <!-- SUCCESS -->
+
   <section
     id="successPage"
     class="page success">
@@ -1543,6 +1596,10 @@ textarea::placeholder {
 
 </div>
 
+
+<!-- =========================
+     CATEGORY MODAL
+========================= -->
 
 <div
   id="categoryModal"
@@ -1647,6 +1704,11 @@ if (tg) {
 
 }
 
+
+/* =========================
+   ENVELOPE
+========================= */
+
 let envelopeOpened = false;
 
 
@@ -1681,9 +1743,14 @@ function openEnvelope() {
       "hidden"
     );
 
-  }, 1300);
+  }, 1600);
 
 }
+
+
+/* =========================
+   CALENDAR DATA
+========================= */
 
 const startDate =
   new Date(2026, 8, 26);
@@ -1703,6 +1770,10 @@ let wishedDays = {};
 const STORAGE_KEY =
   "wishnote_wished_days";
 
+
+/* =========================
+   STORAGE
+========================= */
 
 function loadWishedDays() {
 
@@ -1766,6 +1837,11 @@ function saveWishedDays() {
 
 }
 
+
+/* =========================
+   PAGES
+========================= */
+
 function showPage(id) {
 
   document
@@ -1810,6 +1886,11 @@ function backToCalendar() {
 
 }
 
+
+/* =========================
+   MONTHS
+========================= */
+
 const months = [
 
   "ЯНВАРЬ",
@@ -1827,6 +1908,10 @@ const months = [
 
 ];
 
+
+/* =========================
+   RENDER CALENDAR
+========================= */
 
 function renderCalendar() {
 
@@ -1986,6 +2071,11 @@ function renderCalendar() {
 
 }
 
+
+/* =========================
+   DATE
+========================= */
+
 function formatDate(date) {
 
   const d =
@@ -2007,6 +2097,11 @@ function formatDate(date) {
   return `${d}.${m}.${y}`;
 
 }
+
+
+/* =========================
+   OPEN DAY
+========================= */
 
 function openDay(date) {
 
@@ -2069,6 +2164,11 @@ function openDay(date) {
 
 }
 
+
+/* =========================
+   CATEGORY
+========================= */
+
 function selectCategory(
   category
 ) {
@@ -2116,6 +2216,11 @@ function selectCategory(
   );
 
 }
+
+
+/* =========================
+   TELEGRAM
+========================= */
 
 async function sendWishToOwner(
   dateKey,
@@ -2186,6 +2291,11 @@ async function sendWishToOwner(
   }
 
 }
+
+
+/* =========================
+   SEAL WISH
+========================= */
 
 async function sealWish() {
 
@@ -2316,6 +2426,11 @@ async function sealWish() {
 
 }
 
+
+/* =========================
+   MONTH NAVIGATION
+========================= */
+
 function previousMonth() {
 
   currentMonth =
@@ -2357,6 +2472,11 @@ function nextMonth() {
 
 }
 
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
 document
   .getElementById(
     "categoryModal"
@@ -2377,6 +2497,11 @@ document
 
     }
   );
+
+
+/* =========================
+   START
+========================= */
 
 loadWishedDays();
 
