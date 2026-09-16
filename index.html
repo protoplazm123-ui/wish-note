@@ -11,6 +11,8 @@
 
 <title>WISH NOTE ♡</title>
 
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
 
 /* =========================
@@ -37,7 +39,7 @@ body {
       rgba(0, 0, 0, 0.45),
       rgba(0, 0, 0, 0.45)
     ),
-    url("BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png")
+    url("IMG_1023.jpeg")
     center center / cover fixed no-repeat;
 }
 
@@ -59,6 +61,328 @@ body {
 
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
+
+  position: relative;
+  z-index: 1;
+}
+
+
+/* =========================
+   КОНВЕРТ
+========================= */
+
+.envelope-page {
+  position: fixed;
+  inset: 0;
+
+  z-index: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px;
+
+  background:
+    linear-gradient(
+      rgba(255,255,255,0.82),
+      rgba(248,242,245,0.92)
+    );
+
+  color: #49434a;
+
+  transition:
+    opacity 0.7s ease,
+    visibility 0.7s ease;
+}
+
+.envelope-page.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.envelope-scene {
+  width: 100%;
+  max-width: 390px;
+
+  text-align: center;
+}
+
+.envelope-label {
+  margin-bottom: 25px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 4px;
+
+  color: #9a7180;
+}
+
+.envelope-wrap {
+  position: relative;
+
+  width: 100%;
+  max-width: 350px;
+
+  height: 245px;
+
+  margin: 0 auto;
+
+  cursor: pointer;
+
+  perspective: 1000px;
+}
+
+.envelope {
+  position: absolute;
+
+  left: 50%;
+  bottom: 15px;
+
+  width: 100%;
+  height: 205px;
+
+  transform:
+    translateX(-50%);
+
+  filter:
+    drop-shadow(
+      0 20px 35px rgba(0,0,0,0.18)
+    );
+}
+
+.envelope-back {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffdfb,
+      #eee5e8
+    );
+
+  border-radius: 8px;
+
+  border: 1px solid #ded2d7;
+
+  overflow: hidden;
+}
+
+
+/* нижние складки */
+
+.envelope-back::before {
+  content: "";
+
+  position: absolute;
+
+  left: -5%;
+  bottom: -35%;
+
+  width: 80%;
+  height: 85%;
+
+  background: #f4ecef;
+
+  transform:
+    rotate(28deg);
+
+  border-top:
+    1px solid #dfd1d6;
+}
+
+.envelope-back::after {
+  content: "";
+
+  position: absolute;
+
+  right: -5%;
+  bottom: -35%;
+
+  width: 80%;
+  height: 85%;
+
+  background: #f0e7ea;
+
+  transform:
+    rotate(-28deg);
+
+  border-top:
+    1px solid #dfd1d6;
+}
+
+
+/* письмо */
+
+.letter {
+  position: absolute;
+
+  z-index: 3;
+
+  left: 8%;
+  bottom: 20px;
+
+  width: 84%;
+  height: 175px;
+
+  padding: 25px 20px;
+
+  background: #fff;
+
+  border-radius: 4px;
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,0.12);
+
+  transform:
+    translateY(35px);
+
+  transition:
+    transform 1s cubic-bezier(.2,.8,.2,1);
+
+  overflow: hidden;
+}
+
+.letter-title {
+  font-family: Georgia, serif;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #51474d;
+}
+
+.letter-small {
+  margin-top: 8px;
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  color: #a47787;
+}
+
+
+/* клапан */
+
+.envelope-flap {
+  position: absolute;
+
+  z-index: 5;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 125px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffefe,
+      #e9dfe3
+    );
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      50% 100%
+    );
+
+  transform-origin: top center;
+
+  transition:
+    transform 0.9s
+    cubic-bezier(.2,.8,.2,1);
+
+  border-top:
+    1px solid #ded3d7;
+}
+
+
+/* печать */
+
+.envelope-seal {
+  position: absolute;
+
+  z-index: 8;
+
+  left: 50%;
+  top: 92px;
+
+  width: 58px;
+  height: 58px;
+
+  transform:
+    translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #d88ca8;
+
+  color: white;
+
+  font-size: 24px;
+
+  box-shadow:
+    0 8px 20px rgba(120,60,80,0.22);
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.envelope-instruction {
+  margin-top: 25px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #71666c;
+
+  letter-spacing: 1px;
+}
+
+.envelope-sub {
+  margin-top: 8px;
+
+  font-size: 11px;
+
+  color: #a0969c;
+}
+
+
+/* состояние открытия */
+
+.envelope-wrap.opened .envelope-flap {
+  transform:
+    rotateX(180deg);
+}
+
+.envelope-wrap.opened .letter {
+  transform:
+    translateY(-75px);
+}
+
+.envelope-wrap.opened .envelope-seal {
+  opacity: 0;
+
+  transform:
+    translateX(-50%)
+    scale(0.7);
+}
+
+.envelope-wrap.opened {
+  cursor: default;
 }
 
 
@@ -76,6 +400,7 @@ body {
 }
 
 @keyframes pageAppear {
+
   from {
     opacity: 0;
     transform: translateY(12px);
@@ -85,6 +410,7 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+
 }
 
 
@@ -94,32 +420,39 @@ body {
 
 .decor {
   position: fixed;
+
   pointer-events: none;
+
   z-index: 0;
+
   opacity: 0.9;
 }
 
 .decor.one {
   top: 30px;
   left: 15px;
+
   font-size: 28px;
 }
 
 .decor.two {
   top: 110px;
   right: 18px;
+
   font-size: 25px;
 }
 
 .decor.three {
   bottom: 70px;
   left: 18px;
+
   font-size: 22px;
 }
 
 .decor.four {
   bottom: 120px;
   right: 20px;
+
   font-size: 25px;
 }
 
@@ -130,12 +463,16 @@ body {
 
 .intro {
   position: relative;
+
   z-index: 2;
 
-  min-height: calc(100vh - 78px);
+  min-height:
+    calc(100vh - 78px);
 
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
 
   text-align: center;
@@ -145,23 +482,28 @@ body {
   width: 145px;
   height: 145px;
 
-  margin: 0 auto 25px;
+  margin:
+    0 auto 25px;
 
   border-radius: 50%;
 
   background:
-    url("BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png")
+    url("IMG_1024.jpeg")
     center / cover;
 
-  border: 5px solid rgba(255,255,255,0.85);
+  border:
+    5px solid rgba(255,255,255,0.85);
 
   box-shadow:
     0 15px 40px rgba(0,0,0,0.3);
 
-  animation: photoFloat 4s ease-in-out infinite;
+  animation:
+    photoFloat 4s
+    ease-in-out infinite;
 }
 
 @keyframes photoFloat {
+
   0%, 100% {
     transform: translateY(0);
   }
@@ -169,12 +511,14 @@ body {
   50% {
     transform: translateY(-6px);
   }
+
 }
 
 .logo {
   margin: 0;
 
   font-size: 48px;
+
   line-height: 0.95;
 
   font-weight: 900;
@@ -184,13 +528,15 @@ body {
   color: #fff;
 
   text-shadow:
-    0 4px 18px rgba(0,0,0,0.35);
+    0 4px 18px
+    rgba(0,0,0,0.35);
 }
 
 .intro-title {
   margin-top: 18px;
 
   font-size: 23px;
+
   font-weight: 800;
 
   line-height: 1.2;
@@ -199,21 +545,25 @@ body {
 .intro-text {
   max-width: 390px;
 
-  margin: 18px auto 0;
+  margin:
+    18px auto 0;
 
   font-size: 15px;
+
   line-height: 1.65;
 
   font-weight: 500;
 
   text-shadow:
-    0 2px 10px rgba(0,0,0,0.35);
+    0 2px 10px
+    rgba(0,0,0,0.35);
 }
 
 .date-range {
   margin-top: 25px;
 
   font-size: 12px;
+
   font-weight: 800;
 
   letter-spacing: 3px;
@@ -225,14 +575,18 @@ body {
   margin-top: 8px;
 
   font-size: 16px;
+
   font-weight: 900;
 
   letter-spacing: 3px;
 
-  animation: softPulse 3s ease-in-out infinite;
+  animation:
+    softPulse 3s
+    ease-in-out infinite;
 }
 
 @keyframes softPulse {
+
   0%, 100% {
     opacity: 1;
   }
@@ -240,12 +594,14 @@ body {
   50% {
     opacity: 0.7;
   }
+
 }
 
 .love {
   margin-top: 25px;
 
   font-size: 15px;
+
   font-weight: 700;
 }
 
@@ -262,13 +618,16 @@ body {
   padding: 17px 20px;
 
   border: none;
+
   border-radius: 18px;
 
-  background: rgba(255,255,255,0.92);
+  background:
+    rgba(255,255,255,0.92);
 
   color: #555;
 
   font-size: 14px;
+
   font-weight: 900;
 
   letter-spacing: 1px;
@@ -276,7 +635,8 @@ body {
   cursor: pointer;
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,0.2);
+    0 10px 30px
+    rgba(0,0,0,0.2);
 
   transition:
     transform 0.2s ease,
@@ -285,6 +645,10 @@ body {
 
 .main-button:active {
   transform: scale(0.97);
+}
+
+.main-button:disabled {
+  opacity: 0.6;
 }
 
 
@@ -296,11 +660,13 @@ body {
   text-align: center;
 
   margin-top: 10px;
+
   margin-bottom: 25px;
 }
 
 .calendar-small-title {
   font-size: 12px;
+
   font-weight: 800;
 
   letter-spacing: 3px;
@@ -312,6 +678,7 @@ body {
   margin-top: 7px;
 
   font-size: 30px;
+
   font-weight: 900;
 
   letter-spacing: -1px;
@@ -321,6 +688,7 @@ body {
   margin-top: 7px;
 
   font-size: 11px;
+
   letter-spacing: 2px;
 
   opacity: 0.75;
@@ -330,6 +698,7 @@ body {
   display: flex;
 
   align-items: center;
+
   justify-content: space-between;
 
   margin-bottom: 15px;
@@ -337,6 +706,7 @@ body {
 
 .month-name {
   font-size: 18px;
+
   font-weight: 900;
 }
 
@@ -345,9 +715,11 @@ body {
   height: 40px;
 
   border: none;
+
   border-radius: 50%;
 
-  background: rgba(255,255,255,0.2);
+  background:
+    rgba(255,255,255,0.2);
 
   color: white;
 
@@ -377,6 +749,7 @@ body {
   text-align: center;
 
   font-size: 9px;
+
   font-weight: 800;
 
   opacity: 0.7;
@@ -393,17 +766,20 @@ body {
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   position: relative;
 
   border-radius: 14px;
 
-  background: rgba(255,255,255,0.14);
+  background:
+    rgba(255,255,255,0.14);
 
   color: white;
 
   font-size: 14px;
+
   font-weight: 800;
 
   cursor: pointer;
@@ -419,47 +795,37 @@ body {
 
 .day.empty {
   background: transparent;
+
   cursor: default;
 }
 
 .day.locked {
   opacity: 0.3;
+
   cursor: default;
 }
 
 .day.today {
-  background: rgba(255, 190, 211, 0.8);
+  background:
+    rgba(255, 190, 211, 0.8);
 
   color: #4d3941;
 
   box-shadow:
-    0 5px 20px rgba(255,190,211,0.25);
+    0 5px 20px
+    rgba(255,190,211,0.25);
 }
 
 .day.wished::after {
-  content: "♡";
+  content: "🐾";
 
   position: absolute;
 
-  bottom: 3px;
-  right: 5px;
+  bottom: -1px;
 
-  font-size: 9px;
+  right: 2px;
 
-  color: #ffb6cf;
-}
-
-.day.completed::after {
-  content: "✓";
-
-  position: absolute;
-
-  bottom: 3px;
-  right: 5px;
-
-  font-size: 9px;
-
-  color: #b8f0ce;
+  font-size: 11px;
 }
 
 
@@ -471,7 +837,7 @@ body {
   display: grid;
 
   grid-template-columns:
-    1fr 1fr;
+    1fr 1fr 1fr;
 
   gap: 10px;
 
@@ -479,24 +845,43 @@ body {
 }
 
 .photo-card {
-  height: 150px;
+  height: 130px;
 
   border-radius: 20px;
 
   overflow: hidden;
 
-  border: 2px solid rgba(255,255,255,0.3);
+  border:
+    2px solid
+    rgba(255,255,255,0.3);
 
-  background:
-    url("BFD18A4E-CB6F-4E20-B94C-1B4BE708D58B.png")
-    center / cover;
+  background-size: cover;
+
+  background-position: center;
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,0.2);
+    0 10px 30px
+    rgba(0,0,0,0.2);
 }
 
 .photo-card:nth-child(2) {
-  transform: translateY(12px);
+  transform:
+    translateY(12px);
+}
+
+.photo-card.p1 {
+  background-image:
+    url("IMG_1025.jpeg");
+}
+
+.photo-card.p2 {
+  background-image:
+    url("IMG_1026.jpeg");
+}
+
+.photo-card.p3 {
+  background-image:
+    url("IMG_1027.jpeg");
 }
 
 
@@ -514,9 +899,11 @@ body {
   display: none;
 
   align-items: flex-end;
+
   justify-content: center;
 
-  background: rgba(0,0,0,0.5);
+  background:
+    rgba(0,0,0,0.5);
 
   backdrop-filter: blur(5px);
 }
@@ -527,9 +914,11 @@ body {
 
 .modal {
   width: 100%;
+
   max-width: 520px;
 
-  padding: 28px 20px 35px;
+  padding:
+    28px 20px 35px;
 
   border-radius:
     28px 28px 0 0;
@@ -543,17 +932,22 @@ body {
 
   color: #49434a;
 
-  animation: modalUp 0.35s ease;
+  animation:
+    modalUp 0.35s ease;
 }
 
 @keyframes modalUp {
+
   from {
-    transform: translateY(100%);
+    transform:
+      translateY(100%);
   }
 
   to {
-    transform: translateY(0);
+    transform:
+      translateY(0);
   }
+
 }
 
 .modal-date {
@@ -579,7 +973,8 @@ body {
 }
 
 .modal-question {
-  margin: 8px 0 20px;
+  margin:
+    8px 0 20px;
 
   text-align: center;
 
@@ -607,7 +1002,8 @@ body {
 
   padding: 15px;
 
-  border: 1px solid #e6dce1;
+  border:
+    1px solid #e6dce1;
 
   border-radius: 20px;
 
@@ -678,7 +1074,8 @@ body {
   color: #4d474d;
 
   box-shadow:
-    0 20px 50px rgba(0,0,0,0.25);
+    0 20px 50px
+    rgba(0,0,0,0.25);
 }
 
 .wish-category {
@@ -712,11 +1109,13 @@ textarea {
 
   border-radius: 18px;
 
-  border: 1px solid #ded4da;
+  border:
+    1px solid #ded4da;
 
   outline: none;
 
-  background: rgba(255,255,255,0.8);
+  background:
+    rgba(255,255,255,0.8);
 
   color: #4d474d;
 
@@ -755,6 +1154,20 @@ textarea::placeholder {
   cursor: pointer;
 }
 
+.seal-button:disabled {
+  opacity: 0.6;
+}
+
+.wish-hint {
+  margin-top: 10px;
+
+  text-align: center;
+
+  font-size: 12px;
+
+  color: #a56f83;
+}
+
 
 /* =========================
    УСПЕХ
@@ -766,6 +1179,7 @@ textarea::placeholder {
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   text-align: center;
@@ -776,12 +1190,14 @@ textarea::placeholder {
 
   border-radius: 28px;
 
-  background: rgba(255,255,255,0.94);
+  background:
+    rgba(255,255,255,0.94);
 
   color: #4c454b;
 
   box-shadow:
-    0 20px 60px rgba(0,0,0,0.25);
+    0 20px 60px
+    rgba(0,0,0,0.25);
 }
 
 .success-heart {
@@ -792,6 +1208,7 @@ textarea::placeholder {
 }
 
 @keyframes heartBeat {
+
   0%,100% {
     transform: scale(1);
   }
@@ -799,6 +1216,7 @@ textarea::placeholder {
   50% {
     transform: scale(1.12);
   }
+
 }
 
 .success-title {
@@ -838,6 +1256,18 @@ textarea::placeholder {
     font-size: 12px;
   }
 
+  .envelope-wrap {
+    height: 225px;
+  }
+
+  .envelope {
+    height: 190px;
+  }
+
+  .letter {
+    height: 160px;
+  }
+
 }
 
 </style>
@@ -846,13 +1276,81 @@ textarea::placeholder {
 
 <body>
 
+
+<!-- =========================
+     КОНВЕРТ
+========================= -->
+
+<div
+  id="envelopePage"
+  class="envelope-page">
+
+  <div class="envelope-scene">
+
+    <div class="envelope-label">
+      A LITTLE SOMETHING FOR YOU
+    </div>
+
+
+    <div
+      id="envelopeWrap"
+      class="envelope-wrap"
+      onclick="openEnvelope()">
+
+
+      <div class="envelope">
+
+        <div class="envelope-back"></div>
+
+
+        <div class="letter">
+
+          <div class="letter-title">
+            WISH NOTE ♡
+          </div>
+
+          <div class="letter-small">
+            FOR MY КВИТОЧКА
+          </div>
+
+        </div>
+
+
+        <div class="envelope-flap"></div>
+
+
+        <div class="envelope-seal">
+          ♡
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="envelope-instruction">
+      НАЖМИ, ЧТОБЫ ОТКРЫТЬ ♡
+    </div>
+
+    <div class="envelope-sub">
+      здесь для тебя кое-что особенное
+    </div>
+
+  </div>
+
+</div>
+
+
 <div class="app">
 
   <!-- ДЕКОР -->
 
   <div class="decor one">♡</div>
+
   <div class="decor two">🦇</div>
+
   <div class="decor three">🐱</div>
+
   <div class="decor four">✦</div>
 
 
@@ -993,8 +1491,11 @@ textarea::placeholder {
 
     <div class="photo-strip">
 
-      <div class="photo-card"></div>
-      <div class="photo-card"></div>
+      <div class="photo-card p1"></div>
+
+      <div class="photo-card p2"></div>
+
+      <div class="photo-card p3"></div>
 
     </div>
 
@@ -1036,12 +1537,17 @@ textarea::placeholder {
       </textarea>
 
       <button
+        id="sealButton"
         class="seal-button"
         onclick="sealWish()">
 
         ♡ ЗАПЕЧАТАТЬ ЖЕЛАНИЕ
 
       </button>
+
+      <div class="wish-hint">
+        Его увидит только Юля ♡
+      </div>
 
     </div>
 
@@ -1187,6 +1693,73 @@ textarea::placeholder {
 <script>
 
 /* =========================
+   TELEGRAM WEB APP
+========================= */
+
+const tg =
+  window.Telegram
+    ? window.Telegram.WebApp
+    : null;
+
+if (tg) {
+
+  tg.ready();
+
+  tg.expand();
+
+}
+
+
+/* =========================
+   КОНВЕРТ
+========================= */
+
+let envelopeOpened = false;
+
+
+function openEnvelope() {
+
+  if (envelopeOpened) {
+    return;
+  }
+
+  envelopeOpened = true;
+
+
+  const envelope =
+    document.getElementById(
+      "envelopeWrap"
+    );
+
+  const envelopePage =
+    document.getElementById(
+      "envelopePage"
+    );
+
+
+  envelope.classList.add(
+    "opened"
+  );
+
+
+  /*
+   * Сначала открываем конверт.
+   * Затем убираем экран конверта,
+   * чтобы показать письмо.
+   */
+
+  setTimeout(() => {
+
+    envelopePage.classList.add(
+      "hidden"
+    );
+
+  }, 1300);
+
+}
+
+
+/* =========================
    ДАТЫ
 ========================= */
 
@@ -1203,7 +1776,78 @@ let selectedDate = null;
 
 let selectedCategory = null;
 
+
+/* =========================
+   ХРАНИЛИЩЕ
+========================= */
+
 let wishedDays = {};
+
+const STORAGE_KEY =
+  "wishnote_wished_days";
+
+
+function loadWishedDays() {
+
+  if (
+    tg &&
+    tg.CloudStorage
+  ) {
+
+    tg.CloudStorage.getItem(
+
+      STORAGE_KEY,
+
+      (error, value) => {
+
+        if (
+          !error &&
+          value
+        ) {
+
+          try {
+
+            wishedDays =
+              JSON.parse(value);
+
+          } catch (e) {
+
+            wishedDays = {};
+
+          }
+
+          renderCalendar();
+
+        }
+
+      }
+
+    );
+
+  }
+
+}
+
+
+function saveWishedDays() {
+
+  const value =
+    JSON.stringify(wishedDays);
+
+
+  if (
+    tg &&
+    tg.CloudStorage
+  ) {
+
+    tg.CloudStorage.setItem(
+      STORAGE_KEY,
+      value
+    );
+
+  }
+
+}
 
 
 /* =========================
@@ -1216,21 +1860,28 @@ function showPage(id) {
     .querySelectorAll(".page")
     .forEach(page => {
 
-      page.classList.remove("active");
+      page.classList.remove(
+        "active"
+      );
 
     });
+
 
   document
     .getElementById(id)
     .classList.add("active");
 
+
   window.scrollTo(0, 0);
+
 }
 
 
 function openCalendar() {
 
-  showPage("calendarPage");
+  showPage(
+    "calendarPage"
+  );
 
   renderCalendar();
 
@@ -1239,7 +1890,9 @@ function openCalendar() {
 
 function backToCalendar() {
 
-  showPage("calendarPage");
+  showPage(
+    "calendarPage"
+  );
 
   renderCalendar();
 
@@ -1251,6 +1904,7 @@ function backToCalendar() {
 ========================= */
 
 const months = [
+
   "ЯНВАРЬ",
   "ФЕВРАЛЬ",
   "МАРТ",
@@ -1263,19 +1917,25 @@ const months = [
   "ОКТЯБРЬ",
   "НОЯБРЬ",
   "ДЕКАБРЬ"
+
 ];
 
 
 function renderCalendar() {
 
   const year =
-    currentMonth.getFullYear();
+    currentMonth
+      .getFullYear();
 
   const month =
-    currentMonth.getMonth();
+    currentMonth
+      .getMonth();
+
 
   document
-    .getElementById("monthName")
+    .getElementById(
+      "monthName"
+    )
     .textContent =
       months[month] +
       " " +
@@ -1283,14 +1943,21 @@ function renderCalendar() {
 
 
   const grid =
-    document.getElementById("calendarGrid");
+    document
+      .getElementById(
+        "calendarGrid"
+      );
+
 
   grid.innerHTML = "";
 
 
   const firstDay =
-    new Date(year, month, 1)
-      .getDay();
+    new Date(
+      year,
+      month,
+      1
+    ).getDay();
 
 
   const mondayIndex =
@@ -1300,8 +1967,11 @@ function renderCalendar() {
 
 
   const daysInMonth =
-    new Date(year, month + 1, 0)
-      .getDate();
+    new Date(
+      year,
+      month + 1,
+      0
+    ).getDate();
 
 
   for (
@@ -1311,13 +1981,22 @@ function renderCalendar() {
   ) {
 
     const empty =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     empty.className =
       "day empty";
 
-    grid.appendChild(empty);
+    grid.appendChild(
+      empty
+    );
+
   }
+
+
+  const today =
+    new Date();
 
 
   for (
@@ -1327,13 +2006,22 @@ function renderCalendar() {
   ) {
 
     const date =
-      new Date(year, month, day);
+      new Date(
+        year,
+        month,
+        day
+      );
+
 
     const element =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     element.className =
       "day";
+
 
     element.textContent =
       day;
@@ -1361,6 +2049,18 @@ function renderCalendar() {
 
 
     if (
+      date.toDateString() ===
+      today.toDateString()
+    ) {
+
+      element.classList.add(
+        "today"
+      );
+
+    }
+
+
+    if (
       wishedDays[dateKey]
     ) {
 
@@ -1371,7 +2071,9 @@ function renderCalendar() {
     }
 
 
-    grid.appendChild(element);
+    grid.appendChild(
+      element
+    );
 
   }
 
@@ -1385,17 +2087,23 @@ function renderCalendar() {
 function formatDate(date) {
 
   const d =
-    String(date.getDate())
-      .padStart(2, "0");
+    String(
+      date.getDate()
+    ).padStart(2, "0");
+
 
   const m =
-    String(date.getMonth() + 1)
-      .padStart(2, "0");
+    String(
+      date.getMonth() + 1
+    ).padStart(2, "0");
+
 
   const y =
     date.getFullYear();
 
+
   return `${d}.${m}.${y}`;
+
 }
 
 
@@ -1415,18 +2123,52 @@ function openDay(date) {
   }
 
 
-  selectedDate = date;
+  const dateKey =
+    formatDate(date);
+
+
+  if (
+    wishedDays[dateKey]
+  ) {
+
+    if (tg) {
+
+      tg.showAlert(
+        "На этот день ты уже загадал(а) желание ♡"
+      );
+
+    } else {
+
+      alert(
+        "На этот день ты уже загадал(а) желание ♡"
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  selectedDate =
+    date;
 
 
   document
-    .getElementById("modalDate")
+    .getElementById(
+      "modalDate"
+    )
     .textContent =
       formatDate(date);
 
 
   document
-    .getElementById("categoryModal")
-    .classList.add("active");
+    .getElementById(
+      "categoryModal"
+    )
+    .classList.add(
+      "active"
+    );
 
 }
 
@@ -1435,35 +2177,148 @@ function openDay(date) {
    КАТЕГОРИЯ
 ========================= */
 
-function selectCategory(category) {
+function selectCategory(
+  category
+) {
 
   selectedCategory =
     category;
 
 
   document
-    .getElementById("categoryModal")
-    .classList.remove("active");
+    .getElementById(
+      "categoryModal"
+    )
+    .classList.remove(
+      "active"
+    );
 
 
   document
-    .getElementById("selectedCategory")
+    .getElementById(
+      "selectedCategory"
+    )
     .textContent =
       category;
 
 
   document
-    .getElementById("selectedDate")
+    .getElementById(
+      "selectedDate"
+    )
     .textContent =
-      formatDate(selectedDate);
+      formatDate(
+        selectedDate
+      );
 
 
   document
-    .getElementById("wishText")
+    .getElementById(
+      "wishText"
+    )
     .value = "";
 
 
-  showPage("wishPage");
+  showPage(
+    "wishPage"
+  );
+
+}
+
+
+/* =========================
+   ОТПРАВКА ЖЕЛАНИЯ
+========================= */
+
+async function sendWishToOwner(
+  dateKey,
+  category,
+  text
+) {
+
+  /*
+   * ВАЖНО:
+   * Здесь оставляем текущую
+   * архитектуру проекта.
+   *
+   * Если у тебя уже настроен
+   * /api/start, отправку желания
+   * лучше перевести на отдельный
+   * Vercel API, чтобы BOT_TOKEN
+   * никогда не находился
+   * в браузере.
+   */
+
+  const message =
+    "🐾 Новое желание в Wish Note!\n\n" +
+    "📅 Дата: " +
+    dateKey +
+    "\n" +
+    "🏷 Категория: " +
+    category +
+    "\n\n" +
+    "💌 " +
+    text;
+
+
+  /*
+   * В текущем проекте оставляем
+   * прямой Telegram API-вызов.
+   *
+   * НЕ вставляй сюда настоящий
+   * BOT_TOKEN, если его сейчас
+   * нет в этой версии.
+   */
+
+  const BOT_TOKEN =
+    "ВСТАВЬТЕ_ТОКЕН_БОТА_СЮДА";
+
+
+  const OWNER_CHAT_ID =
+    "7771844979";
+
+
+  const url =
+    "https://api.telegram.org/bot" +
+    BOT_TOKEN +
+    "/sendMessage";
+
+
+  const response =
+    await fetch(
+      url,
+      {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+
+        body:
+          JSON.stringify({
+
+            chat_id:
+              OWNER_CHAT_ID,
+
+            text:
+              message
+
+          })
+
+      }
+    );
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      "Telegram API error: " +
+      response.status
+    );
+
+  }
 
 }
 
@@ -1472,42 +2327,137 @@ function selectCategory(category) {
    СОХРАНЕНИЕ ЖЕЛАНИЯ
 ========================= */
 
-function sealWish() {
+async function sealWish() {
 
   const text =
     document
-      .getElementById("wishText")
+      .getElementById(
+        "wishText"
+      )
       .value
       .trim();
 
 
   if (!text) {
 
-    alert(
-      "Сначала напиши своё желание ♡"
-    );
+    if (tg) {
+
+      tg.showAlert(
+        "Сначала напиши своё желание ♡"
+      );
+
+    } else {
+
+      alert(
+        "Сначала напиши своё желание ♡"
+      );
+
+    }
 
     return;
 
   }
 
 
+  const sealButton =
+    document.getElementById(
+      "sealButton"
+    );
+
+
+  sealButton.disabled =
+    true;
+
+
+  sealButton.textContent =
+    "Отправляю...";
+
+
   const key =
-    formatDate(selectedDate);
+    formatDate(
+      selectedDate
+    );
 
 
-  wishedDays[key] = {
+  try {
 
-    category:
+    await sendWishToOwner(
+      key,
       selectedCategory,
-
-    text:
       text
+    );
 
-  };
+
+    if (
+      tg &&
+      tg.sendData
+    ) {
+
+      try {
+
+        tg.sendData(
+          JSON.stringify({
+
+            date: key,
+
+            category:
+              selectedCategory,
+
+            text: text
+
+          })
+        );
+
+      } catch (e) {
+
+        // Ничего не делаем:
+        // sendData доступен
+        // не во всех вариантах
+        // запуска Mini App.
+
+      }
+
+    }
 
 
-  showPage("successPage");
+    wishedDays[key] =
+      true;
+
+
+    saveWishedDays();
+
+
+    showPage(
+      "successPage"
+    );
+
+
+  } catch (error) {
+
+    if (tg) {
+
+      tg.showAlert(
+        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
+      );
+
+    } else {
+
+      alert(
+        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
+      );
+
+    }
+
+  } finally {
+
+    sealButton.disabled =
+      false;
+
+
+    sealButton.textContent =
+      "♡ ЗАПЕЧАТАТЬ ЖЕЛАНИЕ";
+
+  }
 
 }
 
@@ -1520,10 +2470,17 @@ function previousMonth() {
 
   currentMonth =
     new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth() - 1,
+
+      currentMonth
+        .getFullYear(),
+
+      currentMonth
+        .getMonth() - 1,
+
       1
+
     );
+
 
   renderCalendar();
 
@@ -1534,10 +2491,17 @@ function nextMonth() {
 
   currentMonth =
     new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth() + 1,
+
+      currentMonth
+        .getFullYear(),
+
+      currentMonth
+        .getMonth() + 1,
+
       1
+
     );
+
 
   renderCalendar();
 
@@ -1549,7 +2513,9 @@ function nextMonth() {
 ========================= */
 
 document
-  .getElementById("categoryModal")
+  .getElementById(
+    "categoryModal"
+  )
   .addEventListener(
     "click",
     function(event) {
@@ -1571,6 +2537,8 @@ document
 /* =========================
    СТАРТ
 ========================= */
+
+loadWishedDays();
 
 renderCalendar();
 
