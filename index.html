@@ -110,9 +110,6 @@ body {
   color: #9a7180;
 }
 
-
-/* ОБЛАСТЬ КОНВЕРТА */
-
 .envelope-wrap {
   position: relative;
 
@@ -123,9 +120,6 @@ body {
 
   margin: 0 auto;
 }
-
-
-/* САМ КОНВЕРТ */
 
 .envelope {
   position: absolute;
@@ -145,9 +139,6 @@ body {
 
   border-radius: 8px;
 }
-
-
-/* ЗАДНЯЯ ЧАСТЬ КОНВЕРТА */
 
 .envelope-back {
   position: absolute;
@@ -352,6 +343,8 @@ body {
     background 0.15s ease;
 
   cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .envelope-seal:active {
@@ -387,7 +380,6 @@ body {
 
   pointer-events: none;
 }
-
 
 .envelope-instruction {
   margin-top: 25px;
@@ -662,6 +654,8 @@ body {
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .main-button:active {
@@ -747,6 +741,8 @@ body {
   font-size: 20px;
 
   cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .weekdays,
@@ -798,6 +794,8 @@ body {
   transition:
     transform 0.2s ease,
     background 0.2s ease;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .day:active {
@@ -912,6 +910,8 @@ body {
     rgba(0,0,0,0.5);
 
   backdrop-filter: blur(5px);
+
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .modal-overlay.active {
@@ -1017,6 +1017,8 @@ body {
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .category:active {
@@ -1056,6 +1058,8 @@ body {
   font-weight: 800;
 
   cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .wish-card {
@@ -1153,6 +1157,8 @@ textarea::placeholder {
   letter-spacing: 1px;
 
   cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .seal-button:disabled {
@@ -1292,7 +1298,6 @@ textarea::placeholder {
       A LITTLE SOMETHING FOR YOU
     </div>
 
-
     <div
       id="envelopeWrap"
       class="envelope-wrap">
@@ -1301,22 +1306,19 @@ textarea::placeholder {
 
         <div class="envelope-back"></div>
 
-
         <div class="letter">
 
           <div class="letter-title">
-            ♡ Бусинка Вадим  ♡
+            ♡ Бусинка Вадим ♡
           </div>
 
           <div class="letter-small">
-            с Днем Рождения 
+            с Днем Рождения
           </div>
 
         </div>
 
-
         <div class="envelope-flap"></div>
-
 
         <div
           class="envelope-seal"
@@ -1327,7 +1329,6 @@ textarea::placeholder {
       </div>
 
     </div>
-
 
     <div class="envelope-instruction">
       НАЖМИ НА СЕРДЕЧКО, ЧТОБЫ ОТКРЫТЬ ♡
@@ -1349,11 +1350,8 @@ textarea::placeholder {
 <div class="app">
 
   <div class="decor one">♡</div>
-
   <div class="decor two">🐾</div>
-
   <div class="decor three">🐱</div>
-
   <div class="decor four">✦</div>
 
 
@@ -1621,14 +1619,14 @@ textarea::placeholder {
 
       <button
         class="category"
-        onclick="selectCategory('давай представим что мы взрослые ')">
+        onclick="selectCategory('Давай представим, что мы взрослые')">
 
         <div class="category-icon">
           🔥
         </div>
 
         <div class="category-name">
-          давай представим что мы взрослые 
+          Давай представим, что мы взрослые
         </div>
 
       </button>
@@ -1636,14 +1634,14 @@ textarea::placeholder {
 
       <button
         class="category"
-        onclick="selectCategory('Твои гастрономические мечты ')">
+        onclick="selectCategory('Твои гастрономические мечты')">
 
         <div class="category-icon">
           🍓
         </div>
 
         <div class="category-name">
-          Твои гастраномические мечты 
+          Твои гастрономические мечты
         </div>
 
       </button>
@@ -1651,14 +1649,14 @@ textarea::placeholder {
 
       <button
         class="category"
-        onclick="selectCategory('Выбери какой будет наш досуг')">
+        onclick="selectCategory('Выбери, какой будет наш досуг')">
 
         <div class="category-icon">
           🎬
         </div>
 
         <div class="category-name">
-          Выбери какой бкдет наш досуг 
+          Выбери, какой будет наш досуг
         </div>
 
       </button>
@@ -1666,14 +1664,14 @@ textarea::placeholder {
 
       <button
         class="category"
-        onclick="selectCategory('Честный разговор(исли влруг мы поссорились)')">
+        onclick="selectCategory('Честный разговор (если вдруг мы поссорились)')">
 
         <div class="category-icon">
           🖤
         </div>
 
         <div class="category-name">
-          Честный разговор(исли влруг мы поссорились
+          Честный разговор (если вдруг мы поссорились)
         </div>
 
       </button>
@@ -1687,10 +1685,17 @@ textarea::placeholder {
 
 <script>
 
+
+/* =========================
+   TELEGRAM WEB APP
+========================= */
+
 const tg =
-  window.Telegram
+  window.Telegram &&
+  window.Telegram.WebApp
     ? window.Telegram.WebApp
     : null;
+
 
 if (tg) {
 
@@ -1726,6 +1731,11 @@ function openEnvelope() {
     document.getElementById(
       "envelopePage"
     );
+
+
+  if (!envelope || !envelopePage) {
+    return;
+  }
 
 
   envelope.classList.add(
@@ -1774,41 +1784,65 @@ const STORAGE_KEY =
 function loadWishedDays() {
 
   if (
-    tg &&
-    tg.CloudStorage
+    !tg ||
+    !tg.CloudStorage
   ) {
 
-    tg.CloudStorage.getItem(
+    renderCalendar();
 
-      STORAGE_KEY,
+    return;
 
-      (error, value) => {
+  }
 
-        if (
-          !error &&
-          value
-        ) {
 
-          try {
+  tg.CloudStorage.getItem(
 
-            wishedDays =
-              JSON.parse(value);
+    STORAGE_KEY,
 
-          } catch (e) {
+    (error, value) => {
+
+      if (
+        !error &&
+        value
+      ) {
+
+        try {
+
+          const parsed =
+            JSON.parse(value);
+
+          if (
+            parsed &&
+            typeof parsed === "object"
+          ) {
+
+            wishedDays = parsed;
+
+          } else {
 
             wishedDays = {};
 
           }
 
-          renderCalendar();
+        } catch (e) {
+
+          console.error(
+            "Ошибка чтения CloudStorage:",
+            e
+          );
+
+          wishedDays = {};
 
         }
 
       }
 
-    );
 
-  }
+      renderCalendar();
+
+    }
+
+  );
 
 }
 
@@ -1816,7 +1850,9 @@ function loadWishedDays() {
 function saveWishedDays() {
 
   const value =
-    JSON.stringify(wishedDays);
+    JSON.stringify(
+      wishedDays
+    );
 
 
   if (
@@ -1826,7 +1862,19 @@ function saveWishedDays() {
 
     tg.CloudStorage.setItem(
       STORAGE_KEY,
-      value
+      value,
+      (error) => {
+
+        if (error) {
+
+          console.error(
+            "Ошибка сохранения CloudStorage:",
+            error
+          );
+
+        }
+
+      }
     );
 
   }
@@ -1851,12 +1899,24 @@ function showPage(id) {
     });
 
 
-  document
-    .getElementById(id)
-    .classList.add("active");
+  const page =
+    document.getElementById(id);
 
 
-  window.scrollTo(0, 0);
+  if (!page) {
+    return;
+  }
+
+
+  page.classList.add(
+    "active"
+  );
+
+
+  window.scrollTo(
+    0,
+    0
+  );
 
 }
 
@@ -1906,35 +1966,65 @@ const months = [
 
 
 /* =========================
+   CALENDAR LIMITS
+========================= */
+
+function isValidWishDate(date) {
+
+  return (
+    date >= startDate &&
+    date <= endDate
+  );
+
+}
+
+
+function isSameMonth(date1, date2) {
+
+  return (
+    date1.getFullYear() ===
+      date2.getFullYear() &&
+
+    date1.getMonth() ===
+      date2.getMonth()
+  );
+
+}
+
+
+/* =========================
    RENDER CALENDAR
 ========================= */
 
 function renderCalendar() {
 
-  const year =
-    currentMonth
-      .getFullYear();
-
-  const month =
-    currentMonth
-      .getMonth();
-
-
-  document
-    .getElementById(
+  const monthName =
+    document.getElementById(
       "monthName"
-    )
-    .textContent =
-      months[month] +
-      " " +
-      year;
-
+    );
 
   const grid =
-    document
-      .getElementById(
-        "calendarGrid"
-      );
+    document.getElementById(
+      "calendarGrid"
+    );
+
+
+  if (!monthName || !grid) {
+    return;
+  }
+
+
+  const year =
+    currentMonth.getFullYear();
+
+  const month =
+    currentMonth.getMonth();
+
+
+  monthName.textContent =
+    months[month] +
+    " " +
+    year;
 
 
   grid.innerHTML = "";
@@ -2020,8 +2110,7 @@ function renderCalendar() {
 
 
     if (
-      date < startDate ||
-      date > endDate
+      !isValidWishDate(date)
     ) {
 
       element.classList.add(
@@ -2074,6 +2163,11 @@ function renderCalendar() {
 
 function formatDate(date) {
 
+  if (!date) {
+    return "";
+  }
+
+
   const d =
     String(
       date.getDate()
@@ -2102,8 +2196,7 @@ function formatDate(date) {
 function openDay(date) {
 
   if (
-    date < startDate ||
-    date > endDate
+    !isValidWishDate(date)
   ) {
 
     return;
@@ -2119,16 +2212,23 @@ function openDay(date) {
     wishedDays[dateKey]
   ) {
 
-    if (tg) {
+    const message =
+      "На этот день ты уже загадал(а) желание ♡";
+
+
+    if (
+      tg &&
+      tg.showAlert
+    ) {
 
       tg.showAlert(
-        "На этот день ты уже загадал(а) желание ♡"
+        message
       );
 
     } else {
 
       alert(
-        "На этот день ты уже загадал(а) желание ♡"
+        message
       );
 
     }
@@ -2140,6 +2240,9 @@ function openDay(date) {
 
   selectedDate =
     date;
+
+  selectedCategory =
+    null;
 
 
   document
@@ -2168,6 +2271,15 @@ function openDay(date) {
 function selectCategory(
   category
 ) {
+
+  if (
+    !selectedDate
+  ) {
+
+    return;
+
+  }
+
 
   selectedCategory =
     category;
@@ -2211,15 +2323,22 @@ function selectCategory(
     "wishPage"
   );
 
+
+  setTimeout(() => {
+
+    document
+      .getElementById(
+        "wishText"
+      )
+      .focus();
+
+  }, 300);
+
 }
 
 
 /* =========================
-   TELEGRAM
-========================= */
-
-    /* =========================
-   TELEGRAM
+   SEND WISH
 ========================= */
 
 async function sendWishToOwner(
@@ -2255,22 +2374,38 @@ async function sendWishToOwner(
           wish: text,
 
           username:
-            user && user.username
+            user &&
+            user.username
               ? user.username
               : "не указан",
 
           first_name:
-            user && user.first_name
+            user &&
+            user.first_name
               ? user.first_name
               : "Пользователь"
 
         })
+
       }
     );
 
 
-  const result =
-    await response.json();
+  let result;
+
+
+  try {
+
+    result =
+      await response.json();
+
+  } catch (e) {
+
+    throw new Error(
+      "Сервер вернул некорректный ответ"
+    );
+
+  }
 
 
   if (
@@ -2285,6 +2420,9 @@ async function sendWishToOwner(
 
   }
 
+
+  return result;
+
 }
 
 
@@ -2294,27 +2432,56 @@ async function sendWishToOwner(
 
 async function sealWish() {
 
+  if (
+    !selectedDate ||
+    !selectedCategory
+  ) {
+
+    return;
+
+  }
+
+
+  const textarea =
+    document.getElementById(
+      "wishText"
+    );
+
+
+  const sealButton =
+    document.getElementById(
+      "sealButton"
+    );
+
+
+  if (!textarea || !sealButton) {
+    return;
+  }
+
+
   const text =
-    document
-      .getElementById(
-        "wishText"
-      )
-      .value
-      .trim();
+    textarea.value.trim();
 
 
   if (!text) {
 
-    if (tg) {
+    const message =
+      "Сначала напиши своё желание ♡";
+
+
+    if (
+      tg &&
+      tg.showAlert
+    ) {
 
       tg.showAlert(
-        "Сначала напиши своё желание ♡"
+        message
       );
 
     } else {
 
       alert(
-        "Сначала напиши своё желание ♡"
+        message
       );
 
     }
@@ -2324,15 +2491,17 @@ async function sealWish() {
   }
 
 
-  const sealButton =
-    document.getElementById(
-      "sealButton"
-    );
+  if (
+    sealButton.disabled
+  ) {
+
+    return;
+
+  }
 
 
   sealButton.disabled =
     true;
-
 
   sealButton.textContent =
     "Отправляю...";
@@ -2346,6 +2515,11 @@ async function sealWish() {
 
   try {
 
+    /*
+      Сначала отправляем желание
+      на сервер.
+    */
+
     await sendWishToOwner(
       key,
       selectedCategory,
@@ -2353,39 +2527,20 @@ async function sealWish() {
     );
 
 
-    if (
-      tg &&
-      tg.sendData
-    ) {
+    /*
+      Только после успешной
+      отправки блокируем дату.
+    */
 
-      try {
+    wishedDays[key] =
+      true;
 
-        tg.sendData(
-          JSON.stringify({
-
-            date: key,
-
-            category:
-              selectedCategory,
-
-            text: text
-
-          })
-        );
-
-      } catch (e) {
-
-      }
-
-    }
+    saveWishedDays();
 
 
-    // 🧪 ТЕСТОВЫЙ РЕЖИМ
-    // Дата НЕ сохраняется как использованная.
-
-    // wishedDays[key] = true;
-    // saveWishedDays();
-
+    /*
+      Показываем успешный экран.
+    */
 
     showPage(
       "successPage"
@@ -2395,21 +2550,28 @@ async function sealWish() {
   } catch (error) {
 
     console.error(
-      "Ошибка отправки:",
+      "Ошибка отправки желания:",
       error
     );
 
 
-    if (tg) {
+    const message =
+      "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡";
+
+
+    if (
+      tg &&
+      tg.showAlert
+    ) {
 
       tg.showAlert(
-        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
+        message
       );
 
     } else {
 
       alert(
-        "Не получилось отправить желание. Проверь интернет и попробуй ещё раз ♡"
+        message
       );
 
     }
@@ -2418,7 +2580,6 @@ async function sealWish() {
 
     sealButton.disabled =
       false;
-
 
     sealButton.textContent =
       "♡ ЗАПЕЧАТАТЬ ЖЕЛАНИЕ";
@@ -2434,18 +2595,38 @@ async function sealWish() {
 
 function previousMonth() {
 
-  currentMonth =
+  const previous =
     new Date(
-
-      currentMonth
-        .getFullYear(),
-
-      currentMonth
-        .getMonth() - 1,
-
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() - 1,
       1
-
     );
+
+
+  /*
+    Не позволяем уйти раньше
+    сентября 2026.
+  */
+
+  const minimumMonth =
+    new Date(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      1
+    );
+
+
+  if (
+    previous < minimumMonth
+  ) {
+
+    return;
+
+  }
+
+
+  currentMonth =
+    previous;
 
 
   renderCalendar();
@@ -2455,18 +2636,38 @@ function previousMonth() {
 
 function nextMonth() {
 
-  currentMonth =
+  const next =
     new Date(
-
-      currentMonth
-        .getFullYear(),
-
-      currentMonth
-        .getMonth() + 1,
-
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() + 1,
       1
-
     );
+
+
+  /*
+    Не позволяем уйти дальше
+    сентября 2027.
+  */
+
+  const maximumMonth =
+    new Date(
+      endDate.getFullYear(),
+      endDate.getMonth(),
+      1
+    );
+
+
+  if (
+    next > maximumMonth
+  ) {
+
+    return;
+
+  }
+
+
+  currentMonth =
+    next;
 
 
   renderCalendar();
